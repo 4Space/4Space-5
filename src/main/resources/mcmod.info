@@ -1,0 +1,16 @@
+[
+{
+  "modid": "SpaceCore",
+  "name": "4Space",
+  "description": "Want to explore many planets, asteroids and moons? Want to blast off with many new rockets, craft new armors, mine new ores and build with many new blocks? 4-Space includes all of the planets in our solar systems, and even some moons! So what are you waiting for? The solar system isn’t going to explore itself!",
+  "version": "5.0.0",
+  "mcversion": "1.7.10",
+  "url": "http://4space.mods.center",
+  "updateUrl": "http://4space.mods.center/#download",
+  "authorList": ["Mattparks, Flashy3, Decaxon, BBoldt, Canpea55, Jelfir, GemOfEvan"],
+  "credits": "Credits to all contributors to the 4Space mod!",
+  "logoFile": "assets/spacecore/logo.png",
+  "screenshots": [],
+  "dependencies": ["Galacticraft"]
+}
+]
