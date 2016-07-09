@@ -120,7 +120,7 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 
 	@Override
 	public IChunkProvider createChunkGenerator() {
-		return new GenChunkProvider(worldObj, worldObj.getSeed(), worldObj.getWorldInfo().isMapFeaturesEnabled(), VenusCore.instance.getGenerationSettings(), new GenBiomeDecorator(VenusCore.instance.getGeneratableOres()));
+		return new GenChunkProvider(worldObj, worldObj.getSeed(), worldObj.getWorldInfo().isMapFeaturesEnabled(), VenusCore.instance.getGenerationSettings(), VenusCore.instance.getGenBiomeDecorator());
 	}
 
 	@Override

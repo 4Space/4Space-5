@@ -2,6 +2,7 @@ package com.mattparks.space.core.builder;
 
 import java.util.List;
 
+import com.mattparks.space.core.world.gen.GenBiomeDecorator;
 import com.mattparks.space.core.world.gen.GenBiomeDecorator.GenerateOre;
 import com.mattparks.space.core.world.gen.GenChunkProvider.GenerationSettings;
 
@@ -137,11 +138,11 @@ public abstract class ICorePlanet {
 	public abstract GenerationSettings getGenerationSettings();
 	
 	/**
-	 * Gets a list of ores to be generated.
+	 * Gets the main biome decorator for the planet.
 	 * 
-	 * @return Generatable ores.
+	 * @return The planets biome decorator.
 	 */
-	public abstract List<GenerateOre> getGeneratableOres();
+	public abstract GenBiomeDecorator getGenBiomeDecorator();
 	
 	/**
 	 * Gets a list of mobs to spawn on the planet.

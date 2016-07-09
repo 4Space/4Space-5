@@ -6,7 +6,9 @@ import java.util.List;
 import com.mattparks.space.core.builder.ICorePlanet;
 import com.mattparks.space.core.teleport.TeleportTypeBallons;
 import com.mattparks.space.core.utils.SpacePair;
+import com.mattparks.space.core.world.gen.GenBiomeDecorator;
 import com.mattparks.space.core.world.gen.GenBiomeDecorator.GenerateOre;
+import com.mattparks.space.core.world.gen.GenBiomeDecorator.GenerateStructure;
 import com.mattparks.space.core.world.gen.GenChunkProvider.GenerationSettings;
 
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
@@ -20,6 +22,7 @@ import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedZombie;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraftforge.client.IRenderHandler;
@@ -109,12 +112,28 @@ public class VenusCore extends ICorePlanet {
 	}
 	
 	@Override
-	public List<GenerateOre> getGeneratableOres() {
+	public GenBiomeDecorator getGenBiomeDecorator() {
 		List<GenerateOre> oreList = new ArrayList<GenerateOre>();
 		oreList.add(new GenerateOre(new SpacePair<Block, Byte>(Blocks.dirt, new Byte("0")), new SpacePair<Block, Byte>(Blocks.stone, new Byte("0")), 32, 32, 0, 256));
 		oreList.add(new GenerateOre(new SpacePair<Block, Byte>(Blocks.coal_ore, new Byte("0")), new SpacePair<Block, Byte>(Blocks.stone, new Byte("0")), 15, 32, 0, 185));
 		oreList.add(new GenerateOre(new SpacePair<Block, Byte>(Blocks.iron_ore, new Byte("0")), new SpacePair<Block, Byte>(Blocks.stone, new Byte("0")), 9, 32, 0, 100));
-		return oreList;
+
+		List<GenerateStructure> structureList = new ArrayList<GenerateStructure>();
+		structureList.add(new GenerateStructure() {
+			@Override
+			public void generate(GenBiomeDecorator decorator) {
+				int lavaLakesPerChunk = 5;
+				
+				for (int i = 0; i < lavaLakesPerChunk; i++) {
+					int x = decorator.getChunkX() + decorator.getRandom().nextInt(16) + 8;
+					int y = decorator.getRandom().nextInt(decorator.getRandom().nextInt(decorator.getRandom().nextInt(112) + 8) + 8);
+					int z = decorator.getChunkX() + decorator.getRandom().nextInt(16) + 8;
+					// TODO: Generate lava!
+				}
+			}
+		});
+		
+		return new GenBiomeDecorator(oreList, structureList);
 	}
 
 	@Override

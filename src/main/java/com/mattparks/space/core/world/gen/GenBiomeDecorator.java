@@ -1,6 +1,7 @@
 package com.mattparks.space.core.world.gen;
 
 import java.util.List;
+import java.util.Random;
 
 import com.mattparks.space.core.utils.SpacePair;
 
@@ -10,12 +11,23 @@ import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+/**
+ * A class capable of generating ores and other simple structures.
+ */
 public class GenBiomeDecorator extends BiomeDecoratorSpace {
 	private List<GenerateOre> oreList;
+	private List<GenerateStructure> structureList;
 	private World currentWorld;
 
-	public GenBiomeDecorator(List<GenerateOre> oreList) {
+	/**
+	 * Creates a new biome decorator.
+	 * 
+	 * @param oreList Ores the generator is capable of generating.
+	 * @param structureList An optional list of simple generators.
+	 */
+	public GenBiomeDecorator(List<GenerateOre> oreList, List<GenerateStructure> structureList) {
 		this.oreList = oreList;
+		this.structureList = structureList;
 	}
 
 	@Override
@@ -23,16 +35,39 @@ public class GenBiomeDecorator extends BiomeDecoratorSpace {
 		for (GenerateOre ore : oreList) {
 			generateOre(ore.amountPerChunk, ore.generator, ore.minY, ore.maxY);
 		}
+		
+		if (structureList != null) {
+			for (GenerateStructure structure : structureList) {
+				structure.generate(this);
+			}
+		}
 	}
 
-	protected void setCurrentWorld(World world) {
+	@Override
+	public void setCurrentWorld(World world) {
 		this.currentWorld = world;
 	}
 
-	protected World getCurrentWorld() {
+	@Override
+	public World getCurrentWorld() {
 		return this.currentWorld;
 	}
 	
+	public int getChunkX() {
+		return chunkX;
+	}
+
+	public int getChunkZ() {
+		return chunkZ;
+	}
+	
+	public Random getRandom() {
+		return rand;
+	}
+
+	/**
+	 * A class representing a ore that can be generated.
+	 */
 	public static class GenerateOre {
 		protected SpacePair<Block, Byte> bGen;
 		protected SpacePair<Block, Byte> bGenOn;
@@ -41,6 +76,16 @@ public class GenBiomeDecorator extends BiomeDecoratorSpace {
 		protected int minY;
 		protected int maxY;
 		
+		/**
+		 * Creates a new generatable ore.
+		 * 
+		 * @param bGen The block to generate.
+		 * @param bGenOn The type of block to generate in.
+		 * @param commonness How common the ore will be.
+		 * @param amountPerChunk The amount of the ore per chunk.
+		 * @param minY The minimum elevation.
+		 * @param maxY The maximum elevation.
+		 */
 		public GenerateOre(SpacePair<Block, Byte> bGen, SpacePair<Block, Byte> bGenOn, int commonness, int amountPerChunk, int minY, int maxY) {
 			this.bGen = bGen;
 			this.bGenOn = bGenOn;
@@ -49,5 +94,17 @@ public class GenBiomeDecorator extends BiomeDecoratorSpace {
 			this.minY = minY;
 			this.maxY = maxY;
 		}
+	}
+	
+	/**
+	 * A simple interface used to generate simple structure from the decorator.
+	 */
+	public static interface GenerateStructure {
+		/**
+		 * Generates the structure.
+		 * 
+		 * @param decorator The decorator to generate in.
+		 */
+		void generate(GenBiomeDecorator decorator);
 	}
 }
