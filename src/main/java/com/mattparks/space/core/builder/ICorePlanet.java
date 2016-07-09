@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.mattparks.space.core.world.gen.GenBiomeDecorator.GenerateOre;
 import com.mattparks.space.core.world.gen.GenChunkProvider.GenerationSettings;
-import com.mattparks.space.core.world.gen.GenChunkProvider.WorldGenBlocks;
 
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.GalaxyRegistry;
@@ -13,6 +12,8 @@ import micdoodle8.mods.galacticraft.api.prefab.world.gen.WorldProviderSpace;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.api.world.ITeleportType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.WorldProvider;
+import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraftforge.client.IRenderHandler;
 
 /**
@@ -119,9 +120,33 @@ public abstract class ICorePlanet {
 	 */
 	public abstract void loadRecipes();
 	
+	/**
+	 * Gets if a provider is an instance of the world provider used for the planet.
+	 * 
+	 * @param provider The provider to check.
+	 * 
+	 * @return If the provider is an instance of the world provider used in the planet.
+	 */
+	public abstract boolean instanceOfProvider(WorldProvider provider);
+	
+	/**
+	 * Gets a object that contains generation settings.
+	 * 
+	 * @return The object with generation settings.
+	 */
 	public abstract GenerationSettings getGenerationSettings();
 	
-	public abstract WorldGenBlocks getWorldGenBlocks();
-	
+	/**
+	 * Gets a list of ores to be generated.
+	 * 
+	 * @return Generatable ores.
+	 */
 	public abstract List<GenerateOre> getGeneratableOres();
+	
+	/**
+	 * Gets a list of mobs to spawn on the planet.
+	 * 
+	 * @return Spawnable mobs.
+	 */
+	public abstract List<SpawnListEntry> getSpawnableMonsters();
 }

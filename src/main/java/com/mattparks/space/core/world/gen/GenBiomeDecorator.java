@@ -1,6 +1,5 @@
 package com.mattparks.space.core.world.gen;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.mattparks.space.core.utils.SpacePair;
@@ -8,7 +7,6 @@ import com.mattparks.space.core.utils.SpacePair;
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.BiomeDecoratorSpace;
 import micdoodle8.mods.galacticraft.core.world.gen.WorldGenMinableMeta;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 

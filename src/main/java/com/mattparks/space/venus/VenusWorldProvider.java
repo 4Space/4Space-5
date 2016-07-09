@@ -56,7 +56,7 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 
 	@Override
 	public Class<? extends WorldChunkManager> getWorldChunkManagerClass() {
-		return GenChunkManager.class;
+		return null; // So this should not be null, but normally this would return `GenChunkManager.class`. That does not work with our new generator so we skip this method.
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 
 	@Override
 	public void registerWorldChunkManager() {
-		this.worldChunkMgr = new GenChunkManager();
+		this.worldChunkMgr = new GenChunkManager(getDimensionName(), 211);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -120,7 +120,7 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 
 	@Override
 	public IChunkProvider createChunkGenerator() {
-		return new GenChunkProvider(worldObj, worldObj.getSeed(), worldObj.getWorldInfo().isMapFeaturesEnabled(), VenusCore.instance.getGenerationSettings(), VenusCore.instance.getWorldGenBlocks(), new GenBiomeDecorator(VenusCore.instance.getGeneratableOres()));
+		return new GenChunkProvider(worldObj, worldObj.getSeed(), worldObj.getWorldInfo().isMapFeaturesEnabled(), VenusCore.instance.getGenerationSettings(), new GenBiomeDecorator(VenusCore.instance.getGeneratableOres()));
 	}
 
 	@Override

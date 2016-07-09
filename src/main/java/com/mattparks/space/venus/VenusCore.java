@@ -8,16 +8,20 @@ import com.mattparks.space.core.teleport.TeleportTypeBallons;
 import com.mattparks.space.core.utils.SpacePair;
 import com.mattparks.space.core.world.gen.GenBiomeDecorator.GenerateOre;
 import com.mattparks.space.core.world.gen.GenChunkProvider.GenerationSettings;
-import com.mattparks.space.core.world.gen.GenChunkProvider.WorldGenBlocks;
 
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
 import micdoodle8.mods.galacticraft.api.galaxies.Planet;
 import micdoodle8.mods.galacticraft.api.world.IAtmosphericGas;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.core.GalacticraftCore;
+import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedCreeper;
+import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedSpider;
+import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedZombie;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.WorldProvider;
+import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraftforge.client.IRenderHandler;
 
 /**
@@ -41,7 +45,6 @@ public class VenusCore extends ICorePlanet {
 
 	@Override
 	public void hideNEI() {
-		//	API.hideItem(new ItemStack(MercuryBlocks.caravanModuleDummy, 1, 0));
 	}
 
 	@Override
@@ -86,22 +89,23 @@ public class VenusCore extends ICorePlanet {
 	}
 
 	@Override
+	public boolean instanceOfProvider(WorldProvider provider) {
+		return provider instanceof VenusWorldProvider;
+	}
+	
+	@Override
 	public GenerationSettings getGenerationSettings() {
 		double terrainHeightMod = 11.0;
 		double smallFeatureHeightMod = 44.0;
 		double mountainHeightMod = 111.0;
 		double valleyHeightMod = 55.0;
 		int craterProbibility = 333;
-		return new GenerationSettings(terrainHeightMod, smallFeatureHeightMod, mountainHeightMod, valleyHeightMod, craterProbibility);
-	}
-	
-	@Override
-	public WorldGenBlocks getWorldGenBlocks() {
-		return new WorldGenBlocks(
-			new SpacePair<Block, Byte>(Blocks.grass, new Byte("0")),
-			new SpacePair<Block, Byte>(Blocks.dirt, new Byte("0")),
-			new SpacePair<Block, Byte>(Blocks.stone, new Byte("0"))
-		);
+		
+		SpacePair<Block, Byte> blockTop = new SpacePair<Block, Byte>(Blocks.grass, new Byte("0"));
+		SpacePair<Block, Byte> blockFiller = new SpacePair<Block, Byte>(Blocks.dirt, new Byte("0"));
+		SpacePair<Block, Byte> blockLower = new SpacePair<Block, Byte>(Blocks.stone, new Byte("0"));
+		
+		return new GenerationSettings(terrainHeightMod, smallFeatureHeightMod, mountainHeightMod, valleyHeightMod, craterProbibility, blockTop, blockFiller, blockLower, getSpawnableMonsters());
 	}
 	
 	@Override
@@ -111,5 +115,15 @@ public class VenusCore extends ICorePlanet {
 		oreList.add(new GenerateOre(new SpacePair<Block, Byte>(Blocks.coal_ore, new Byte("0")), new SpacePair<Block, Byte>(Blocks.stone, new Byte("0")), 15, 32, 0, 185));
 		oreList.add(new GenerateOre(new SpacePair<Block, Byte>(Blocks.iron_ore, new Byte("0")), new SpacePair<Block, Byte>(Blocks.stone, new Byte("0")), 9, 32, 0, 100));
 		return oreList;
+	}
+
+	@Override
+	public List<SpawnListEntry> getSpawnableMonsters() {
+		List<SpawnListEntry> spawnableMonsters = new ArrayList<SpawnListEntry>();
+		spawnableMonsters.add(new SpawnListEntry(EntityEvolvedZombie.class, 5, 1, 1));
+		spawnableMonsters.add(new SpawnListEntry(EntityEvolvedSpider.class, 3, 1, 1));
+		spawnableMonsters.add(new SpawnListEntry(EntityEvolvedCreeper.class, 2, 1, 1));
+	//	spawnableMonsterList.add(new SpawnListEntry(EntityEvolvedBlaze.class, 4, 1, 1));
+		return spawnableMonsters;
 	}
 }

@@ -1,20 +1,14 @@
 package com.mattparks.space.core.world.gen;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.mattparks.space.core.utils.SpaceLog;
 import com.mattparks.space.core.utils.SpacePair;
 
-import micdoodle8.mods.galacticraft.api.prefab.world.gen.BiomeDecoratorSpace;
-import micdoodle8.mods.galacticraft.api.prefab.world.gen.MapGenBaseMeta;
-import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedCreeper;
-import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedSkeleton;
-import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedSpider;
-import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedZombie;
+import micdoodle8.mods.galacticraft.api.prefab.world.gen.WorldChunkManagerSpace;
 import micdoodle8.mods.galacticraft.core.perlin.generator.Gradient;
 import micdoodle8.mods.galacticraft.core.world.gen.EnumCraterSize;
-import micdoodle8.mods.galacticraft.core.world.gen.dungeon.MapGenDungeon;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.entity.EnumCreatureType;
@@ -47,14 +41,17 @@ public class GenChunkProvider extends ChunkProviderGenerate {
 	private Gradient noiseGen6;
 	private Gradient noiseGen7;
 
+	public String biomeName;
+	
 	public GenerationSettings generationSetup;
-	public BiomeGenBase[] biomesForGeneration;
-	public WorldGenBlocks worldGenBlocks;
 	public GenBiomeDecorator biomeDecorator;
 	public GenMapGenCave caveGenerator;
+	public BiomeGenBase[] biomesForGeneration;
 
-	public GenChunkProvider(World par1World, long par2, boolean par4, GenerationSettings generationSetup, WorldGenBlocks worldGenBlocks, GenBiomeDecorator biomeDecorator) {
+	public GenChunkProvider(World par1World, long par2, boolean par4, GenerationSettings generationSetup, GenBiomeDecorator biomeDecorator) {
 		super(par1World, par2, par4);
+		SpaceLog.severe("INIT GenChunkProvider");
+		
 		this.worldObject = par1World;
 		
 		this.random = new Random(par2);
@@ -66,11 +63,15 @@ public class GenChunkProvider extends ChunkProviderGenerate {
 		this.noiseGen6 = new Gradient(this.random.nextLong(), 1, 0.25f);
 		this.noiseGen7 = new Gradient(this.random.nextLong(), 1, 0.25f);
 		
-		this.biomesForGeneration = new GenBiomeGenBase[]{ GenBiomeGenBase.biome };
+		WorldChunkManagerSpace chunkManager = (WorldChunkManagerSpace) worldObject.getWorldChunkManager();
+		
+		this.biomeName = chunkManager.getBiome().biomeName;
+		
 		this.generationSetup = generationSetup;
-		this.worldGenBlocks = worldGenBlocks;
 		this.biomeDecorator = biomeDecorator;
 		this.caveGenerator = new GenMapGenCave();
+		
+		this.biomesForGeneration = new BiomeGenBase[]{ chunkManager.getBiome() };
 	}
 
 	@Override
@@ -122,8 +123,8 @@ public class GenChunkProvider extends ChunkProviderGenerate {
 
 				for (int y = 0; y < CHUNK_SIZE_Y; y++) {
 					if (y < MID_HEIGHT + yDev) {
-						idArray[this.getIndex(x, y, z)] = worldGenBlocks.blockLower.getFirst();
-						metaArray[this.getIndex(x, y, z)] = worldGenBlocks.blockLower.getSecond();
+						idArray[this.getIndex(x, y, z)] = generationSetup.blockLower.getFirst();
+						metaArray[this.getIndex(x, y, z)] = generationSetup.blockLower.getSecond();
 					}
 				}
 			}
@@ -187,10 +188,10 @@ public class GenChunkProvider extends ChunkProviderGenerate {
 			for (int var9 = 0; var9 < 16; ++var9) {
 				int var12 = (int) (this.noiseGen4.getNoise(par1 * 16 + var8, par2 * 16 + var9) / 3.0 + 3.0 + this.random.nextDouble() * 0.25);
 				int var13 = -1;
-				Block var14 = worldGenBlocks.blockTop.getFirst();
-				byte var14m = worldGenBlocks.blockTop.getSecond();
-				Block var15 = worldGenBlocks.blockFiller.getFirst();
-				byte var15m = worldGenBlocks.blockFiller.getSecond();
+				Block var14 = generationSetup.blockTop.getFirst();
+				byte var14m = generationSetup.blockTop.getSecond();
+				Block var15 = generationSetup.blockFiller.getFirst();
+				byte var15m = generationSetup.blockFiller.getSecond();
 
 				for (int var16 = CHUNK_SIZE_Y - 1; var16 >= 0; --var16) {
 					int index = this.getIndex(var8, var16, var9);
@@ -202,20 +203,20 @@ public class GenChunkProvider extends ChunkProviderGenerate {
 
 						if (Blocks.air == var18) {
 							var13 = -1;
-						} else if (var18 == worldGenBlocks.blockLower.getFirst()) {
-							arrayOfMeta[index] = worldGenBlocks.blockLower.getSecond();
+						} else if (var18 == generationSetup.blockLower.getFirst()) {
+							arrayOfMeta[index] = generationSetup.blockLower.getSecond();
 
 							if (var13 == -1) {
 								if (var12 <= 0) {
 									var14 = Blocks.air;
 									var14m = 0;
-									var15 = worldGenBlocks.blockLower.getFirst();
-									var15m = worldGenBlocks.blockLower.getSecond();
+									var15 = generationSetup.blockLower.getFirst();
+									var15m = generationSetup.blockLower.getSecond();
 								} else if (var16 >= var5 - -16 && var16 <= var5 + 1) {
-									var14 = worldGenBlocks.blockTop.getFirst();
-									var14m = worldGenBlocks.blockTop.getSecond();
-									var14 = worldGenBlocks.blockFiller.getFirst();
-									var14m = worldGenBlocks.blockFiller.getSecond();
+									var14 = generationSetup.blockTop.getFirst();
+									var14m = generationSetup.blockTop.getSecond();
+									var14 = generationSetup.blockFiller.getFirst();
+									var14m = generationSetup.blockFiller.getSecond();
 								}
 
 								var13 = var12;
@@ -278,19 +279,13 @@ public class GenChunkProvider extends ChunkProviderGenerate {
 
 	@Override
 	public String makeString() {
-		return "VenusLevelSource";
+		return biomeName + "LevelSource";
 	}
 
 	@Override
 	public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, int i, int j, int k) {
 		if (par1EnumCreatureType == EnumCreatureType.monster) {
-			List<SpawnListEntry> monsters = new ArrayList<SpawnListEntry>();
-			
-			for (int x = 0; x < biomesForGeneration.length; x++) {
-				monsters.addAll(((GenBiomeGenBase) biomesForGeneration[x]).getSpawnableMonsters());
-			}
-			
-			return monsters;
+			return generationSetup.spawnableMonsters;
 		} else {
 			return null;
 		}
@@ -339,24 +334,26 @@ public class GenChunkProvider extends ChunkProviderGenerate {
 		protected double valleyHeightMod;
 		protected int craterProbibility;
 		
-		public GenerationSettings(double terrainHeightMod, double smallFeatureHeightMod, double mountainHeightMod, double valleyHeightMod, int craterProbibility) {
+		protected SpacePair<Block, Byte> blockTop;
+		protected SpacePair<Block, Byte> blockFiller;
+		protected SpacePair<Block, Byte> blockLower;
+		
+		protected List<SpawnListEntry> spawnableMonsters;
+		
+		public GenerationSettings(double terrainHeightMod, double smallFeatureHeightMod, double mountainHeightMod, double valleyHeightMod, int craterProbibility, 
+				SpacePair<Block, Byte> blockTop, SpacePair<Block, Byte> blockFiller, SpacePair<Block, Byte> blockLower,
+				List<SpawnListEntry> spawnableMonsters) {
 			this.terrainHeightMod = terrainHeightMod;
 			this.smallFeatureHeightMod = smallFeatureHeightMod;
 			this.mountainHeightMod = mountainHeightMod;
 			this.valleyHeightMod = valleyHeightMod;
 			this.craterProbibility = craterProbibility;
-		}
-	}
-	
-	public static class WorldGenBlocks {
-		protected SpacePair<Block, Byte> blockTop;
-		protected SpacePair<Block, Byte> blockFiller;
-		protected SpacePair<Block, Byte> blockLower;
-		
-		public WorldGenBlocks(SpacePair<Block, Byte> blockTop, SpacePair<Block, Byte> blockFiller, SpacePair<Block, Byte> blockLower) {
+			
 			this.blockTop = blockTop;
 			this.blockFiller = blockFiller;
 			this.blockLower = blockLower;
+			
+			this.spawnableMonsters = spawnableMonsters;
 		}
 	}
 }

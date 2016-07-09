@@ -37,7 +37,7 @@ public class TickHandlerClient {
 		// Sets up the atmosphere for the world.
 		if (world != null) {
 			for (ICorePlanet planet : SpaceCore.planetsList) {
-				if (world.provider.getClass().isInstance(planet.worldProvider.getClass())) {
+				if (planet.instanceOfProvider(world.provider)) {
 					if (world.provider.getSkyRenderer() == null) {
 						world.provider.setSkyRenderer(planet.createSkyProvider((IGalacticraftWorldProvider) world.provider));
 					}
