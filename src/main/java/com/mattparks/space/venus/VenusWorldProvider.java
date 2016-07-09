@@ -1,7 +1,8 @@
 package com.mattparks.space.venus;
 
-import com.mattparks.space.venus.world.VenusChunkProvider;
-import com.mattparks.space.venus.world.VenusWorldChunkManager;
+import com.mattparks.space.core.world.gen.GenBiomeDecorator;
+import com.mattparks.space.core.world.gen.GenChunkManager;
+import com.mattparks.space.core.world.gen.GenChunkProvider;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -20,12 +21,12 @@ import net.minecraft.world.chunk.IChunkProvider;
 public class VenusWorldProvider extends WorldProviderSpace implements IGalacticraftWorldProvider {
 	@Override
 	public Vector3 getFogColor() {
-		return new Vector3(200, 150, 5);
+		return new Vector3(200.0, 150.0, 5.0);
 	}
 
 	@Override
 	public Vector3 getSkyColor() {
-		return new Vector3(200, 150, 5);
+		return new Vector3(200.0, 150.0, 5.0);
 	}
 
 	@Override
@@ -40,7 +41,7 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 
 	@Override
 	public long getDayLength() {
-		return 160000L;
+		return 160000;
 	}
 
 	@Override
@@ -50,12 +51,12 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 
 	@Override
 	public Class<? extends IChunkProvider> getChunkProviderClass() {
-		return VenusChunkProvider.class;
+		return GenChunkProvider.class;
 	}
 
 	@Override
 	public Class<? extends WorldChunkManager> getWorldChunkManagerClass() {
-		return VenusWorldChunkManager.class;
+		return GenChunkManager.class;
 	}
 
 	@Override
@@ -66,11 +67,11 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 
 	@Override
 	protected void generateLightBrightnessTable() {
-		final float var1 = 0.0F;
+		final float var1 = 0.0f;
 
 		for (int var2 = 0; var2 <= 15; ++var2) {
-			final float var3 = 1.0F - var2 / 15.0F;
-			this.lightBrightnessTable[var2] = (1.0F - var3) / (var3 * 3.0F + 1.0F) * (1.0F - var1) + var1;
+			final float var3 = 1.0f - var2 / 15.0f;
+			this.lightBrightnessTable[var2] = (1.0f - var3) / (var3 * 3.0f + 1.0f) * (1.0f - var1) + var1;
 		}
 	}
 
@@ -81,35 +82,35 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 
 	@Override
 	public void registerWorldChunkManager() {
-		this.worldChunkMgr = new VenusWorldChunkManager();
+		this.worldChunkMgr = new GenChunkManager();
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Vec3 getFogColor(float var1, float var2) {
-		return Vec3.createVectorHelper((double) 210F / 255F, (double) 120F / 255F, (double) 59F / 255F);
+		return Vec3.createVectorHelper((double) 210.0f / 255.0f, (double) 120.0f / 255.0f, (double) 59.0f / 255.0f);
 	}
 
 	@Override
 	public Vec3 getSkyColor(Entity cameraEntity, float partialTicks) {
-		return Vec3.createVectorHelper(154 / 255.0F, 114 / 255.0F, 66 / 255.0F);
+		return Vec3.createVectorHelper(154 / 255.0f, 114 / 255.0f, 66 / 255.0f);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public float getStarBrightness(float par1) {
 		float f1 = this.worldObj.getCelestialAngle(par1);
-		float f2 = 1.0F - (MathHelper.cos(f1 * (float) Math.PI * 2.0F) * 2.0F + 0.25F);
+		float f2 = 1.0f - (MathHelper.cos(f1 * (float) Math.PI * 2.0f) * 2.0f + 0.25f);
 
-		if (f2 < 0.0F) {
-			f2 = 0.0F;
+		if (f2 < 0.0f) {
+			f2 = 0.0f;
 		}
 
-		if (f2 > 1.0F) {
-			f2 = 1.0F;
+		if (f2 > 1.0f) {
+			f2 = 1.0f;
 		}
 
-		return f2 * f2 * 0.75F;
+		return f2 * f2 * 0.75f;
 	}
 
 	@Override
@@ -117,17 +118,9 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 		return super.calculateCelestialAngle(par1, par3);
 	}
 
-	public float calculatePhobosAngle(long par1, float par3) {
-		return this.calculateCelestialAngle(par1, par3) * 3000;
-	}
-
-	public float calculateDeimosAngle(long par1, float par3) {
-		return this.calculatePhobosAngle(par1, par3) * 0.0000000001F;
-	}
-
 	@Override
 	public IChunkProvider createChunkGenerator() {
-		return new VenusChunkProvider(this.worldObj, this.worldObj.getSeed(), this.worldObj.getWorldInfo().isMapFeaturesEnabled());
+		return new GenChunkProvider(worldObj, worldObj.getSeed(), worldObj.getWorldInfo().isMapFeaturesEnabled(), VenusCore.instance.getGenerationSettings(), VenusCore.instance.getWorldGenBlocks(), new GenBiomeDecorator(VenusCore.instance.getGeneratableOres()));
 	}
 
 	@Override
@@ -137,7 +130,7 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 
 	@Override
 	public double getHorizon() {
-		return 44.0D;
+		return 44.0;
 	}
 
 	@Override
@@ -162,7 +155,7 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 
 	@Override
 	public String getSaveFolder() {
-		return "DIM" + VenusCore.dimensionID;
+		return "DIM" + VenusCore.instance.dimensionID;
 	}
 
 	@Override
@@ -179,12 +172,6 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 	public String getDimensionName() {
 		return "Venus";
 	}
-
-	// @Override
-	// public boolean canSnowAt(int x, int y, int z)
-	// {
-	// return false;
-	// }
 
 	@Override
 	public boolean canBlockFreeze(int x, int y, int z, boolean byWater) {
@@ -203,7 +190,7 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 
 	@Override
 	public float getGravity() {
-		return (float) (0.08D * (1 - 0.907));
+		return (float) (0.08 * (1 - 0.907));
 	}
 
 	@Override
@@ -213,12 +200,12 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 
 	@Override
 	public double getMeteorFrequency() {
-		return 5.0D;
+		return 5.0;
 	}
 
 	@Override
 	public double getFuelUsageMultiplier() {
-		return 0.907D;
+		return 0.907;
 	}
 
 	@Override
@@ -228,17 +215,17 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 
 	@Override
 	public float getFallDamageModifier() {
-		return 0.38F;
+		return 0.38f;
 	}
 
 	@Override
 	public float getSoundVolReductionAmount() {
-		return 10.0F;
+		return 10.0f;
 	}
 
 	@Override
 	public CelestialBody getCelestialBody() {
-		return VenusCore.planet;
+		return VenusCore.instance.planet;
 	}
 
 	@Override
@@ -248,11 +235,11 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 
 	@Override
 	public float getThermalLevelModifier() {
-		return 9;
+		return 9.0f;
 	}
 
 	@Override
 	public float getWindLevel() {
-		return 7.0F;
+		return 7.0f;
 	}
 }

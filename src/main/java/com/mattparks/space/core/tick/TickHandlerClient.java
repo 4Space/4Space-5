@@ -42,7 +42,7 @@ public class TickHandlerClient {
 						world.provider.setSkyRenderer(planet.createSkyProvider((IGalacticraftWorldProvider) world.provider));
 					}
 
-					if (planet.hasClouds() && world.provider.getCloudRenderer() == null) {
+					if (world.provider.getCloudRenderer() == null) {
 						world.provider.setCloudRenderer(new CloudRenderer());
 					}
 					

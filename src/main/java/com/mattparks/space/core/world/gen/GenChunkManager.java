@@ -1,11 +1,11 @@
-package com.mattparks.space.venus.world;
+package com.mattparks.space.core.world.gen;
 
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.WorldChunkManagerSpace;
 import net.minecraft.world.biome.BiomeGenBase;
 
-public class VenusWorldChunkManager extends WorldChunkManagerSpace {
+public class GenChunkManager extends WorldChunkManagerSpace {
 	@Override
 	public BiomeGenBase getBiome() {
-		return VenusBiomeGenBase.venus;
+		return GenBiomeGenBase.biome;
 	}
 }

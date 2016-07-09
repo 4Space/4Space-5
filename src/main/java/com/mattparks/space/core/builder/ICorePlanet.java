@@ -1,5 +1,11 @@
 package com.mattparks.space.core.builder;
 
+import java.util.List;
+
+import com.mattparks.space.core.world.gen.GenBiomeDecorator.GenerateOre;
+import com.mattparks.space.core.world.gen.GenChunkProvider.GenerationSettings;
+import com.mattparks.space.core.world.gen.GenChunkProvider.WorldGenBlocks;
+
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.GalaxyRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.Planet;
@@ -13,15 +19,15 @@ import net.minecraftforge.client.IRenderHandler;
  * An abstract class used to create new planets for the mod.
  */
 public abstract class ICorePlanet {
-	public static int dimensionID;
+	public int dimensionID;
 	public String prefixAsset;
 	public String prefixTexture;
 	
 	public String rocketGuiLocation;
 	
-	public static Planet planet;
-	public static WorldProviderSpace worldProvider;
-	public static ITeleportType teleportType;
+	public Planet planet;
+	public WorldProviderSpace worldProvider;
+	public ITeleportType teleportType;
 	
 	/**
 	 * Creates a new planet.
@@ -58,11 +64,6 @@ public abstract class ICorePlanet {
 	}
 	
 	/**
-	 * Loads crafting and smelting recipes to minecraft.
-	 */
-	public abstract void loadRecipes();
-	
-	/**
 	 * Loads blocks to minecraft.
 	 */
 	public abstract void loadBlocks();
@@ -94,14 +95,7 @@ public abstract class ICorePlanet {
 	public abstract IRenderHandler createSkyProvider(IGalacticraftWorldProvider world);
 	
 	/**
-	 * Will the planet have clouds?
-	 * 
-	 * @return Will clouds be rendered.
-	 */
-	public abstract boolean hasClouds();
-
-	/**
-	 * Adds shapeless recipes, used crafters like galacticrafts smeltery.
+	 * Adds shapeless recipes, used crafters like galacticrafts compressor.
 	 */
 	public abstract void addShapelessRecipes();
 	
@@ -119,4 +113,15 @@ public abstract class ICorePlanet {
 	 * Registers any other type of entity.
 	 */
 	public abstract void registerOtherEntities();
+
+	/**
+	 * Loads crafting and smelting recipes to minecraft.
+	 */
+	public abstract void loadRecipes();
+	
+	public abstract GenerationSettings getGenerationSettings();
+	
+	public abstract WorldGenBlocks getWorldGenBlocks();
+	
+	public abstract List<GenerateOre> getGeneratableOres();
 }
