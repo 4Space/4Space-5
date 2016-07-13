@@ -263,7 +263,7 @@ public class VenusSkyProvider extends IRenderHandler {
 		final Tessellator var2 = Tessellator.instance;
 		var2.startDrawingQuads();
 
-		for (int starIndex = 0; starIndex < (ConfigManagerCore.moreStars ? 40000 : 6000); ++starIndex) {
+		for (int starIndex = 0; starIndex < (ConfigManagerCore.moreStars ? 6000 : 1000); ++starIndex) {
 			double var4 = rand.nextFloat() * 2.0f - 1.0f;
 			double var6 = rand.nextFloat() * 2.0f - 1.0f;
 			double var8 = rand.nextFloat() * 2.0f - 1.0f;

@@ -19,14 +19,18 @@ import net.minecraft.world.chunk.IChunkProvider;
 
 public class VenusWorldProvider extends WorldProviderSpace implements IGalacticraftWorldProvider {
 	@Override
-	public Vector3 getFogColor() {
-		return new Vector3(200.0, 150.0, 5.0);
-	}
+    public Vector3 getFogColor()
+    {
+        float f = 1.0f - this.getStarBrightness(1.0f);
+        return new Vector3(225.0f * f, 125.0f * f, 5.0f * f);
+    }
 
-	@Override
-	public Vector3 getSkyColor() {
-		return new Vector3(200.0, 150.0, 5.0);
-	}
+    @Override
+    public Vector3 getSkyColor()
+    {
+        float f = 1.0f - this.getStarBrightness(1.0f);
+        return new Vector3(200.0f * f, 150.0f * f, 5.0f * f);
+    }
 
 	@Override
 	public boolean canRainOrSnow() {
@@ -109,7 +113,7 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 			f2 = 1.0f;
 		}
 
-		return f2 * f2 * 0.75f;
+		return f2 * f2 * 0.65f;
 	}
 
 	@Override
