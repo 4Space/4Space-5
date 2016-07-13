@@ -12,6 +12,8 @@ import com.mattparks.space.core.world.gen.GenBiomeDecorator;
 import com.mattparks.space.core.world.gen.GenBiomeDecorator.GenerateOre;
 import com.mattparks.space.core.world.gen.GenBiomeDecorator.GenerateStructure;
 import com.mattparks.space.core.world.gen.GenChunkProvider.GenerationSettings;
+import com.mattparks.space.venus.blocks.VenusBlocks;
+import com.mattparks.space.venus.items.VenusItems;
 
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
 import micdoodle8.mods.galacticraft.api.galaxies.Planet;
@@ -32,10 +34,15 @@ import net.minecraftforge.client.IRenderHandler;
  * A implementation of a 4Space planet, for the planet Venus.
  */
 public class VenusCore extends ICorePlanet {
+	public static String ASSET_PREFIX;
+	public static String TEXTURE_PREFIX;
+	
 	public static VenusCore instance;
 	
 	public VenusCore() {
 		super(-41, "spacevenus", "textures/gui/venusRocketGui.png", new VenusWorldProvider(), new TeleportTypeBallons());
+		ASSET_PREFIX = super.prefixAsset;
+		TEXTURE_PREFIX = super.prefixTexture;
 		instance = this;
 	}
 
@@ -65,7 +72,7 @@ public class VenusCore extends ICorePlanet {
 		venus.setBodyIcon(new ResourceLocation(GalacticraftCore.ASSET_PREFIX, "textures/gui/celestialbodies/venus.png"));
 		venus.setTierRequired(2);
 		venus.setDimensionInfo(dimensionID, worldProvider.getClass());
-		venus.atmosphereComponent(IAtmosphericGas.CO2).atmosphereComponent(IAtmosphericGas.HELIUM).atmosphereComponent(IAtmosphericGas.ARGON);
+		venus.atmosphereComponent(IAtmosphericGas.CO2).atmosphereComponent(IAtmosphericGas.HELIUM).atmosphereComponent(IAtmosphericGas.NITROGEN).atmosphereComponent(IAtmosphericGas.ARGON);
 		return venus;
 	}
 
@@ -107,9 +114,9 @@ public class VenusCore extends ICorePlanet {
 		double valleyHeightMod = 55.0;
 		int craterProbibility = 333;
 		
-		SpacePair<Block, Byte> blockTop = new SpacePair<Block, Byte>(Blocks.grass, new Byte("0"));
-		SpacePair<Block, Byte> blockFiller = new SpacePair<Block, Byte>(Blocks.dirt, new Byte("0"));
-		SpacePair<Block, Byte> blockLower = new SpacePair<Block, Byte>(Blocks.stone, new Byte("0"));
+		SpacePair<Block, Byte> blockTop = new SpacePair<Block, Byte>(VenusBlocks.venusBasicBlock, new Byte("0"));
+		SpacePair<Block, Byte> blockFiller = new SpacePair<Block, Byte>(VenusBlocks.venusBasicBlock, new Byte("1"));
+		SpacePair<Block, Byte> blockLower = new SpacePair<Block, Byte>(VenusBlocks.venusBasicBlock, new Byte("2"));
 		
 		return new GenerationSettings(terrainHeightMod, smallFeatureHeightMod, mountainHeightMod, valleyHeightMod, craterProbibility, blockTop, blockFiller, blockLower, getSpawnableMonsters());
 	}

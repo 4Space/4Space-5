@@ -87,12 +87,12 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 	@SideOnly(Side.CLIENT)
 	@Override
 	public Vec3 getFogColor(float var1, float var2) {
-		return Vec3.createVectorHelper((double) 210.0f / 255.0f, (double) 120.0f / 255.0f, (double) 59.0f / 255.0f);
+		return Vec3.createVectorHelper(getFogColor().x / 255.0f, getFogColor().y / 255.0f, getFogColor().z / 255.0f);
 	}
 
 	@Override
 	public Vec3 getSkyColor(Entity cameraEntity, float partialTicks) {
-		return Vec3.createVectorHelper(154 / 255.0f, 114 / 255.0f, 66 / 255.0f);
+		return Vec3.createVectorHelper(getSkyColor().x / 255.0f, getSkyColor().y / 255.0f, getSkyColor().z / 255.0f);
 	}
 
 	@Override

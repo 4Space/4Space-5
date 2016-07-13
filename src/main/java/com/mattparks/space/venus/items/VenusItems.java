@@ -1,4 +1,4 @@
-package com.mattparks.space.venus;
+package com.mattparks.space.venus.items;
 
 import com.mattparks.space.core.builder.ICoreItems;
 
