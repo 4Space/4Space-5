@@ -3,7 +3,8 @@ package com.mattparks.space.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mattparks.space.core.builder.ICorePlanet;
+import com.mattparks.space.core.builder.ICoreModule;
+import com.mattparks.space.core.builder.celestials.ICorePlanet;
 import com.mattparks.space.core.proxy.CommonProxy;
 import com.mattparks.space.core.utils.SpaceCreativeTab;
 import com.mattparks.space.core.utils.SpaceLog;
@@ -42,8 +43,8 @@ public class SpaceCore {
 	public static CreativeTabs spaceBlocksTab;
 	public static CreativeTabs spaceItemsTab;
 	
-	public static List<ICorePlanet> planetsList = new ArrayList<ICorePlanet>();
-	
+	public static List<ICoreModule> modulesList = new ArrayList<ICoreModule>();
+
 	/**
 	 * Registers a block with the game registry.
 	 * 
@@ -69,8 +70,8 @@ public class SpaceCore {
 	public static void registerHideNEI() {
 		SpaceLog.severe("Hidding NEI Items/Blocks");
 		
-		for(ICorePlanet planet : planetsList) {
-			planet.hideNEI();
+		for(ICoreModule module : modulesList) {
+			module.hideNEI();
 		}
 	}
 	
@@ -78,7 +79,7 @@ public class SpaceCore {
     public void preInit(FMLPreInitializationEvent event) {
 		SpaceLog.severe("Pre-Init");
 		
-    	planetsList.add(new VenusCore());
+    	modulesList.add(new VenusCore());
     	
 		proxy.preInit(event);
     }
@@ -87,17 +88,30 @@ public class SpaceCore {
     public void init(FMLInitializationEvent event) {
 		SpaceLog.severe("Init");
 		
-		for(ICorePlanet planet : planetsList) {
-			planet.loadBlocks();
-			planet.loadItems();
+		// Registers each module.
+		for (ICoreModule module : modulesList) {
+			module.loadBlocks();
+			module.loadItems();
 			
-			planet.registerPlanet();
-			
-			planet.addShapelessRecipes();
-			planet.registerTileEntities();
-			planet.registerCreatures();
-			planet.registerOtherEntities();
+			module.addShapelessRecipes();
+			module.registerTileEntities();
+			module.registerCreatures();
+			module.registerOtherEntities();
 		}
+
+		// Registers module planets.
+		for (ICoreModule module : modulesList) {
+			if (module instanceof ICorePlanet) {
+				((ICorePlanet) module).registerPlanet();
+			}
+		}
+
+		// Registers module moons.
+	//	for (ICoreModule module : planetsList) {
+	//		if (module instanceof ICoreMoon) {
+	//			((ICoreMoon) module).registerMoon();
+	//		}
+	//	}
 		
 		proxy.init(event);
     }
@@ -109,7 +123,7 @@ public class SpaceCore {
 		spaceBlocksTab = new SpaceCreativeTab(CreativeTabs.getNextID(), "SpaceBlocks", Item.getItemFromBlock(Blocks.dirt), 0);
 		spaceItemsTab = new SpaceCreativeTab(CreativeTabs.getNextID(), "SpaceItems", Items.chest_minecart, 0);
 		
-		for (ICorePlanet planet : planetsList) {
+		for (ICoreModule planet : modulesList) {
 			planet.loadRecipes();
 		}
 		

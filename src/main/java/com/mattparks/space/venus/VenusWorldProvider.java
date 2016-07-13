@@ -1,6 +1,5 @@
 package com.mattparks.space.venus;
 
-import com.mattparks.space.core.world.gen.GenBiomeDecorator;
 import com.mattparks.space.core.world.gen.GenChunkManager;
 import com.mattparks.space.core.world.gen.GenChunkProvider;
 

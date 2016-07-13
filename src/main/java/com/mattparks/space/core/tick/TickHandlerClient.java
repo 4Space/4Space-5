@@ -1,7 +1,8 @@
 package com.mattparks.space.core.tick;
 
 import com.mattparks.space.core.SpaceCore;
-import com.mattparks.space.core.builder.ICorePlanet;
+import com.mattparks.space.core.builder.ICoreModule;
+import com.mattparks.space.core.builder.celestials.ICoreCelestial;
 import com.mattparks.space.core.utils.SpaceVersionCheck;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -36,17 +37,21 @@ public class TickHandlerClient {
 
 		// Sets up the atmosphere for the world.
 		if (world != null) {
-			for (ICorePlanet planet : SpaceCore.planetsList) {
-				if (planet.instanceOfProvider(world.provider)) {
-					if (world.provider.getSkyRenderer() == null) {
-						world.provider.setSkyRenderer(planet.createSkyProvider((IGalacticraftWorldProvider) world.provider));
-					}
-
-					if (world.provider.getCloudRenderer() == null) {
-						world.provider.setCloudRenderer(new CloudRenderer());
-					}
+			for (ICoreModule module : SpaceCore.modulesList) {
+				if (module instanceof ICoreCelestial) {
+					ICoreCelestial celestial = (ICoreCelestial) module;
 					
-					break;
+					if (celestial.instanceOfProvider(world.provider)) {
+						if (world.provider.getSkyRenderer() == null) {
+							world.provider.setSkyRenderer(celestial.createSkyProvider((IGalacticraftWorldProvider) world.provider));
+						}
+
+						if (world.provider.getCloudRenderer() == null) {
+							world.provider.setCloudRenderer(new CloudRenderer());
+						}	
+						
+						break;
+					}
 				}
 			}
 		}

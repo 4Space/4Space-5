@@ -3,7 +3,9 @@ package com.mattparks.space.venus;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mattparks.space.core.builder.ICorePlanet;
+import com.mattparks.space.core.builder.ICoreBlocks;
+import com.mattparks.space.core.builder.ICoreItems;
+import com.mattparks.space.core.builder.celestials.ICorePlanet;
 import com.mattparks.space.core.teleport.TeleportTypeBallons;
 import com.mattparks.space.core.utils.SpacePair;
 import com.mattparks.space.core.world.gen.GenBiomeDecorator;
@@ -22,7 +24,6 @@ import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedZombie;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraftforge.client.IRenderHandler;
@@ -39,11 +40,13 @@ public class VenusCore extends ICorePlanet {
 	}
 
 	@Override
-	public void loadBlocks() {
+	public ICoreBlocks getBlocks() {
+		return new VenusBlocks();
 	}
 
 	@Override
-	public void loadItems() {
+	public ICoreItems getItems() {
+		return new VenusItems();
 	}
 
 	@Override
