@@ -44,7 +44,7 @@ public class VenusBlocks implements ICoreBlocks {
 
 	@Override
 	public void registerBlocks() {
-		venusBlock.registerBasicBlocks();
+		venusBlock.registerBlock();
 		sulfurTorch.registerBlock();
 		venusianTNT.registerBlock();
 	}

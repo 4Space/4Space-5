@@ -15,10 +15,8 @@ item.venusRod.name=Venus Rod
 item.venusRodDust.name=Venus Rod Dust
 item.ingotUranium.name=Uranium Ingot
 item.uraniumPlate.name=Uranium Plate
-item.sulfur_battery.name=Sulfur Battery
-item.uranium_battery.name=Uranium Battery
-item.jetpackThruster.name=Jetpack Engine
-item.jetpackBody.name=Jetpack Body
+item.batterySulfur.name=Sulfur Battery
+item.batteryUranium.name=Uranium Battery
 
 # Tools
 item.ruby_axe.name=Ruby Axe
@@ -41,7 +39,6 @@ item.sulfur_boots.name=Sulfur Boots
 item.sulfur_chestplate.name=Sulfur Chestplate
 item.sulfur_helmet.name=Sulfur Helmet
 item.sulfur_leggings.name=Sulfur Leggings
-item.jetpack.name=Jetpack
 
 # Blocks
 tile.venusBlock.venusSurfaceRock.name=Venus Surface Rock

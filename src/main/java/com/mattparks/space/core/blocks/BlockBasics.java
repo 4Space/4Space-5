@@ -36,7 +36,7 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 		this.blocks = blocks;
 	}
 
-	public void registerBasicBlocks() {
+	public void registerBlock() {
 		BlockBasicsItem.BLOCK_TYPES.put(this, new String[blocks.length]);
 		
 		for (int i = 0; i < blocks.length; i++) {
