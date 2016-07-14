@@ -6,6 +6,7 @@ import com.mattparks.space.core.builder.ICoreModule;
 import com.mattparks.space.core.world.gen.GenBiomeDecorator;
 import com.mattparks.space.core.world.gen.GenChunkProvider.GenerationSettings;
 
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.WorldProviderSpace;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.api.world.ITeleportType;
@@ -17,8 +18,6 @@ import net.minecraftforge.client.IRenderHandler;
  * An abstract class used to create new celestial bodys in the mod.
  */
 public abstract class ICoreCelestial extends ICoreModule {
-	public int dimensionID;
-	
 	public String rocketGuiLocation;
 	
 	public WorldProviderSpace worldProvider;
@@ -27,21 +26,23 @@ public abstract class ICoreCelestial extends ICoreModule {
 	/**
 	 * Creates a new celestial body.
 	 * 
-	 * @param dimensionID The celestial bodys dimension (EX: -44).
+	 * @param event The event given on pre init, used to create the configs.
 	 * @param prefixAsset The asset prefix to use (EX: "spacecelestial").
 	 * @param rocketGuiLocation The location for the rocket GUI (EX: "textures/gui/celestialRocketGui.png").
 	 * @param worldProvider The world provider, the class that contains info about the celestial body.
 	 * @param teleportType The teleport type used when entering the planet (use one from the com.mattparks.space.core.teleport package).
 	 */
-	public ICoreCelestial(int dimensionID, String prefixAsset, String rocketGuiLocation, WorldProviderSpace worldProvider, ITeleportType teleportType) {
-		super(prefixAsset);
-		this.dimensionID = dimensionID;
-		
+	public ICoreCelestial(FMLPreInitializationEvent event, String prefixAsset, String rocketGuiLocation, WorldProviderSpace worldProvider, ITeleportType teleportType) {
+		super(event, prefixAsset);
 		this.rocketGuiLocation = rocketGuiLocation;
 		
 		this.worldProvider = worldProvider;
 		this.teleportType = teleportType;
 	}
+	
+	public abstract int getDimensionID();
+	
+	public abstract int getBiomeID();
 
 	/**
 	 * Creates the sky provider for the celestial body.

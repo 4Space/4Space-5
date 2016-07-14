@@ -1,22 +1,39 @@
 package com.mattparks.space.core.builder;
 
+import net.minecraftforge.common.config.Configuration;
+
+import java.io.File;
+
+import com.mattparks.space.core.Constants;
+
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+
 /**
- * An abstract class used to createing new mod modules.
+ * An abstract class used to creating new mod modules.
  */
 public abstract class ICoreModule {
 	public String prefixAsset;
 	public String prefixTexture;
+	public static Configuration configuration;
 	
 	/**
 	 * Creates a new 4Space mod module.
 	 * 
+	 * @param event The event given on pre init, used to create the configs.
 	 * @param prefixAsset The asset prefix to use (EX: "spacevenus").
 	 */
-	public ICoreModule(String prefixAsset) {
+	public ICoreModule(FMLPreInitializationEvent event, String prefixAsset) {
 		this.prefixAsset = prefixAsset;
 		this.prefixTexture = prefixAsset + ":";
+		this.configuration = new Configuration(new File(event.getModConfigurationDirectory(), Constants.MOD_NAME + "/" + prefixAsset + ".cfg"));
+		
+		this.configuration.load();
+		loadFromConfig();
+		this.configuration.save();
 	}
 	
+	public abstract void loadFromConfig();
+
 	/**
 	 * Loads blocks to minecraft.
 	 */

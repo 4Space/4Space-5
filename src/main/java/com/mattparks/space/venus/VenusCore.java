@@ -15,6 +15,7 @@ import com.mattparks.space.core.world.gen.GenChunkProvider.GenerationSettings;
 import com.mattparks.space.venus.blocks.VenusBlocks;
 import com.mattparks.space.venus.items.VenusItems;
 
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
 import micdoodle8.mods.galacticraft.api.galaxies.Planet;
 import micdoodle8.mods.galacticraft.api.world.IAtmosphericGas;
@@ -29,23 +30,38 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraftforge.client.IRenderHandler;
+import net.minecraftforge.common.config.Configuration;
 
 /**
  * A implementation of a 4Space planet, for the planet Venus.
  */
 public class VenusCore extends ICorePlanet {
-	public static String ASSET_PREFIX;
-	public static String TEXTURE_PREFIX;
-	
 	public static VenusCore instance;
 	
-	public VenusCore() {
-		super(-41, "spacevenus", "textures/gui/venusRocketGui.png", new VenusWorldProvider(), new TeleportTypeBallons());
-		ASSET_PREFIX = super.prefixAsset;
-		TEXTURE_PREFIX = super.prefixTexture;
+	private int dimensionID;
+	private int biomeID;
+	
+	public VenusCore(FMLPreInitializationEvent event) {
+		super(event, "spacevenus", "textures/gui/venusRocketGui.png", new VenusWorldProvider(), new TeleportTypeBallons());
 		instance = this;
 	}
 
+	@Override
+	public void loadFromConfig() {
+		dimensionID = configuration.get(Configuration.CATEGORY_GENERAL, "Venus Dimension", -41).getInt(-41);
+		biomeID = configuration.get(Configuration.CATEGORY_GENERAL, "Venus Biome", 211).getInt(211);
+	}
+	
+	@Override
+	public int getDimensionID() {
+		return dimensionID;
+	}
+
+	@Override
+	public int getBiomeID() {
+		return biomeID;
+	}
+	
 	@Override
 	public ICoreBlocks getBlocks() {
 		return new VenusBlocks();
@@ -124,9 +140,17 @@ public class VenusCore extends ICorePlanet {
 	@Override
 	public GenBiomeDecorator getGenBiomeDecorator() {
 		List<GenerateOre> oreList = new ArrayList<GenerateOre>();
-		oreList.add(new GenerateOre(new SpacePair<Block, Byte>(Blocks.dirt, new Byte("0")), new SpacePair<Block, Byte>(Blocks.stone, new Byte("0")), 32, 32, 0, 256));
-		oreList.add(new GenerateOre(new SpacePair<Block, Byte>(Blocks.coal_ore, new Byte("0")), new SpacePair<Block, Byte>(Blocks.stone, new Byte("0")), 15, 32, 0, 185));
-		oreList.add(new GenerateOre(new SpacePair<Block, Byte>(Blocks.iron_ore, new Byte("0")), new SpacePair<Block, Byte>(Blocks.stone, new Byte("0")), 9, 32, 0, 100));
+		SpacePair<Block, Integer> stoneBlock = new SpacePair<Block, Integer>(VenusBlocks.venusBasicBlock, VenusBlocks.venusBasicBlock.getIndex("venusRock"));
+		
+		oreList.add(new GenerateOre(new SpacePair<Block, Integer>(VenusBlocks.venusBasicBlock, VenusBlocks.venusBasicBlock.getIndex("venusSubRock")), stoneBlock, 32, 32, 0, 256));
+		oreList.add(new GenerateOre(new SpacePair<Block, Integer>(VenusBlocks.venusBasicBlock, VenusBlocks.venusBasicBlock.getIndex("venusOreSulfur")), stoneBlock, 12, 12, 0, 64));
+		oreList.add(new GenerateOre(new SpacePair<Block, Integer>(VenusBlocks.venusBasicBlock, VenusBlocks.venusBasicBlock.getIndex("venusOreUranium")), stoneBlock, 2, 8, 0, 16));
+		oreList.add(new GenerateOre(new SpacePair<Block, Integer>(VenusBlocks.venusBasicBlock, VenusBlocks.venusBasicBlock.getIndex("venusOreRuby")), stoneBlock, 8, 8, 0, 16));
+		oreList.add(new GenerateOre(new SpacePair<Block, Integer>(VenusBlocks.venusBasicBlock, VenusBlocks.venusBasicBlock.getIndex("venusOreCrystal")), stoneBlock, 3, 8, 0, 16));
+		oreList.add(new GenerateOre(new SpacePair<Block, Integer>(VenusBlocks.venusBasicBlock, VenusBlocks.venusBasicBlock.getIndex("venusOreTin")), stoneBlock, 4, 16, 0, 48));
+		oreList.add(new GenerateOre(new SpacePair<Block, Integer>(VenusBlocks.venusBasicBlock, VenusBlocks.venusBasicBlock.getIndex("venusOreCopper")), stoneBlock, 5, 16, 0, 48));
+		oreList.add(new GenerateOre(new SpacePair<Block, Integer>(VenusBlocks.venusBasicBlock, VenusBlocks.venusBasicBlock.getIndex("venusOreIron")), stoneBlock, 7, 16, 0, 64));
+		oreList.add(new GenerateOre(new SpacePair<Block, Integer>(VenusBlocks.venusBasicBlock, VenusBlocks.venusBasicBlock.getIndex("venusOreCoal")), stoneBlock, 10, 16, 0, 128));
 
 		List<GenerateStructure> structureList = new ArrayList<GenerateStructure>();
 		structureList.add(new GenerateStructure() {

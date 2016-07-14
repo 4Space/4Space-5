@@ -16,6 +16,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraftforge.common.config.Configuration;
 
 public class VenusWorldProvider extends WorldProviderSpace implements IGalacticraftWorldProvider {
 	@Override
@@ -85,7 +86,7 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 
 	@Override
 	public void registerWorldChunkManager() {
-		this.worldChunkMgr = new GenChunkManager(getDimensionName(), 211);
+		this.worldChunkMgr = new GenChunkManager(getDimensionName(), VenusCore.instance.getBiomeID());
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -158,7 +159,7 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 
 	@Override
 	public String getSaveFolder() {
-		return "DIM" + VenusCore.instance.dimensionID;
+		return "DIM" + VenusCore.instance.getDimensionID();
 	}
 
 	@Override

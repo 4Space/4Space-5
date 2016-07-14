@@ -1,5 +1,6 @@
 package com.mattparks.space.core.builder.celestials;
 
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import micdoodle8.mods.galacticraft.api.GalacticraftRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.GalaxyRegistry;
 import micdoodle8.mods.galacticraft.api.galaxies.Planet;
@@ -16,14 +17,14 @@ public abstract class ICorePlanet extends ICoreCelestial {
 	/**
 	 * Creates a new planet.
 	 * 
-	 * @param dimensionID The planets dimension (EX: -11).
+	 * @param event The event given on pre init, used to create the configs.
 	 * @param prefixAsset The asset prefix to use (EX: "spaceplanet").
 	 * @param rocketGuiLocation The location for the rocket GUI (EX: "textures/gui/planetRocketGui.png").
 	 * @param worldProvider The world provider, the class that contains info about the planet.
 	 * @param teleportType The teleport type used when entering the planet (use one from com.mattparks.space.core.teleport).
 	 */
-	public ICorePlanet(int dimensionID, String prefixAsset, String rocketGuiLocation, WorldProviderSpace worldProvider, ITeleportType teleportType) {
-		super(dimensionID, prefixAsset, rocketGuiLocation, worldProvider, teleportType);
+	public ICorePlanet(FMLPreInitializationEvent event, String prefixAsset, String rocketGuiLocation, WorldProviderSpace worldProvider, ITeleportType teleportType) {
+		super(event, prefixAsset, rocketGuiLocation, worldProvider, teleportType);
 		this.planet = null; // Will be created in `registerPlanet()`.
 	}
 

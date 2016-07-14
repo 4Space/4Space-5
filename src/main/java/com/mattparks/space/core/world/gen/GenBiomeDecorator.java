@@ -86,9 +86,9 @@ public class GenBiomeDecorator extends BiomeDecoratorSpace {
 		 * @param minY The minimum elevation.
 		 * @param maxY The maximum elevation.
 		 */
-		public GenerateOre(SpacePair<Block, Byte> bGen, SpacePair<Block, Byte> bGenOn, int commonness, int amountPerChunk, int minY, int maxY) {
-			this.bGen = bGen;
-			this.bGenOn = bGenOn;
+		public GenerateOre(SpacePair<Block, Integer> bGen, SpacePair<Block, Integer> bGenOn, int commonness, int amountPerChunk, int minY, int maxY) {
+			this.bGen = new SpacePair<Block, Byte>(bGen.getFirst(), new Byte("" + bGen.getSecond()));
+			this.bGenOn = new SpacePair<Block, Byte>(bGenOn.getFirst(), new Byte("" + bGenOn.getSecond()));
 			this.generator = new WorldGenMinableMeta(bGen.getFirst(), commonness, bGen.getSecond(), true, bGenOn.getFirst(), bGenOn.getSecond());
 			this.amountPerChunk = amountPerChunk;
 			this.minY = minY;

@@ -4,6 +4,7 @@ import com.mattparks.space.core.SpaceCore;
 import com.mattparks.space.core.blocks.BlockBasics;
 import com.mattparks.space.core.blocks.BlockBasics.BasicBlock;
 import com.mattparks.space.core.builder.ICoreBlocks;
+import com.mattparks.space.venus.VenusCore;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -82,7 +83,7 @@ public class VenusBlocks implements ICoreBlocks {
 				@Override public String getDamagedDrop() { return null; }
 			}
 		};
-		venusBasicBlock = new BlockBasics("venus_basic", basicBlocks);
+		venusBasicBlock = new BlockBasics("venus_basic", VenusCore.instance.prefixTexture, basicBlocks);
 	}
 	
 	@Override

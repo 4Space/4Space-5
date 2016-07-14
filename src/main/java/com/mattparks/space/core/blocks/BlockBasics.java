@@ -32,10 +32,12 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 	private IIcon[] blockIcon;
 	
 	private BasicBlock[] blocks;
+	private String texturePrefix;
 
-	public BlockBasics(String name, BasicBlock[] blocks) {
+	public BlockBasics(String name, String texturePrefix, BasicBlock[] blocks) {
 		super(Material.rock);
 		this.setBlockName(name);
+		this.texturePrefix = texturePrefix;
 		this.blocks = blocks;
 	}
 
@@ -48,7 +50,7 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 		blockIcon = new IIcon[blocks.length];
 		
 		for (int i = 0; i < blocks.length; i++) {
-			blockIcon[i] = par1IconRegister.registerIcon(VenusCore.TEXTURE_PREFIX + blocks[i].getType());
+			blockIcon[i] = par1IconRegister.registerIcon(texturePrefix + blocks[i].getType());
 		}
 	}
 

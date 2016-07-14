@@ -95,8 +95,8 @@ public class SpaceCore {
     public void preInit(FMLPreInitializationEvent event) {
 		SpaceLog.severe("Pre-Init");
 		
-    	modulesList.add(new VenusCore());
-    	
+    	modulesList.add(new VenusCore(event));
+
 		proxy.preInit(event);
     }
     
