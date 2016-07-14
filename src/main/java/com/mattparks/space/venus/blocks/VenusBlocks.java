@@ -1,89 +1,41 @@
 package com.mattparks.space.venus.blocks;
 
-import com.mattparks.space.core.SpaceCore;
 import com.mattparks.space.core.blocks.BlockBasics;
-import com.mattparks.space.core.blocks.BlockBasics.BasicBlock;
+import com.mattparks.space.core.blocks.BlockBuilder;
 import com.mattparks.space.core.builder.ICoreBlocks;
 import com.mattparks.space.venus.VenusCore;
 
-import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class VenusBlocks implements ICoreBlocks {
-	public static BlockBasics venusBasicBlock;
+	public static BlockBasics venusBlock;
+	public static BlockSulfurTorch sulfurTorch;
+	public static BlockVenusianTNT venusianTNT;
 	
 	@Override
 	public void initBlocks() {
-		BasicBlock[] basicBlocks = new BasicBlock[] {
-			new BasicBlock() {
-				@Override public String getType() { return "venusSurfaceRock"; }
-				@Override public float getHardness() { return 1.25f; }
-				@Override public float getResistance() { return -1; }
-				@Override public String getDamagedDrop() { return null; }
-			}, new BasicBlock() {
-				@Override public String getType() { return "venusSubRock"; }
-				@Override public float getHardness() { return 1.0f; }
-				@Override public float getResistance() { return -1; }
-				@Override public String getDamagedDrop() { return null; }
-			}, new BasicBlock() {
-				@Override public String getType() { return "venusRock"; }
-				@Override public float getHardness() { return 1.5f; }
-				@Override public float getResistance() { return -1; }
-				@Override public String getDamagedDrop() { return "venusCobblestone"; }
-			}, new BasicBlock() {
-				@Override public String getType() { return "venusCobblestone"; }
-				@Override public float getHardness() { return 2.5f; }
-				@Override public float getResistance() { return -1; }
-				@Override public String getDamagedDrop() { return null; }
-			}, new BasicBlock() {
-				@Override public String getType() { return "venusBrickDungeon"; }
-				@Override public float getHardness() { return 25.0f; }
-				@Override public float getResistance() { return 40.0f; }
-				@Override public String getDamagedDrop() { return null; }
-			}, new BasicBlock() {
-				@Override public String getType() { return "venusOreSulfur"; }
-				@Override public float getHardness() { return 2.5f; }
-				@Override public float getResistance() { return -1.0f; }
-				@Override public String getDamagedDrop() { return null; }
-			}, new BasicBlock() {
-				@Override public String getType() { return "venusOreUranium"; }
-				@Override public float getHardness() { return 2.5f; }
-				@Override public float getResistance() { return -1.0f; }
-				@Override public String getDamagedDrop() { return null; }
-			}, new BasicBlock() {
-				@Override public String getType() { return "venusOreRuby"; }
-				@Override public float getHardness() { return 2.5f; }
-				@Override public float getResistance() { return -1.0f; }
-				@Override public String getDamagedDrop() { return null; }
-			}, new BasicBlock() {
-				@Override public String getType() { return "venusOreCrystal"; }
-				@Override public float getHardness() { return 2.5f; }
-				@Override public float getResistance() { return -1.0f; }
-				@Override public String getDamagedDrop() { return null; }
-			}, new BasicBlock() {
-				@Override public String getType() { return "venusOreTin"; }
-				@Override public float getHardness() { return 2.5f; }
-				@Override public float getResistance() { return -1.0f; }
-				@Override public String getDamagedDrop() { return null; }
-			}, new BasicBlock() {
-				@Override public String getType() { return "venusOreCopper"; }
-				@Override public float getHardness() { return 2.5f; }
-				@Override public float getResistance() { return -1.0f; }
-				@Override public String getDamagedDrop() { return null; }
-			}, new BasicBlock() {
-				@Override public String getType() { return "venusOreIron"; }
-				@Override public float getHardness() { return 2.5f; }
-				@Override public float getResistance() { return -1.0f; }
-				@Override public String getDamagedDrop() { return null; }
-			}, new BasicBlock() {
-				@Override public String getType() { return "venusOreCoal"; }
-				@Override public float getHardness() { return 2.5f; }
-				@Override public float getResistance() { return -1.0f; }
-				@Override public String getDamagedDrop() { return null; }
-			}
-		};
-		venusBasicBlock = new BlockBasics("venus_basic", VenusCore.instance.prefixTexture, basicBlocks);
+		venusBlock = new BlockBasics("venusBlock", VenusCore.instance.prefixTexture, new BlockBuilder[] {
+				new BlockBuilder("venusSurfaceRock").setHardness(1.25f).setPlantable(true).setTerraformable(true),
+				new BlockBuilder("venusSubRock"),
+				new BlockBuilder("venusRock").setHardness(1.5f),
+				new BlockBuilder("venusCobblestone").setHardness(2.5f).setSealable(true),
+				new BlockBuilder("venusBrickDungeon").setHardness(25.0f).setResistance(40.0f).setSealable(true),
+				new BlockBuilder("venusOreSulfur").setHardness(2.5f).setValueable(true),
+				new BlockBuilder("venusOreUranium").setHardness(2.5f).setValueable(true),
+				new BlockBuilder("venusOreRuby").setHardness(2.5f).setValueable(true),
+				new BlockBuilder("venusOreCrystal").setHardness(2.5f).setValueable(true),
+				new BlockBuilder("venusOreTin").setHardness(2.5f).setValueable(true),
+				new BlockBuilder("venusOreCopper").setHardness(2.5f).setValueable(true),
+				new BlockBuilder("venusOreIron").setHardness(2.5f).setValueable(true),
+				new BlockBuilder("venusOreCoal").setHardness(2.5f).setValueable(true),
+				new BlockBuilder("venusBlockSulfur").setHardness(4.0f),
+				new BlockBuilder("venusBlockUranium").setHardness(4.0f),
+				new BlockBuilder("venusBlockRuby").setHardness(4.0f),
+				new BlockBuilder("venusBlockCrystal").setHardness(4.0f),
+		});
+		sulfurTorch = new BlockSulfurTorch("sulfurTorch");
+		venusianTNT = new BlockVenusianTNT("venusianTNT");
 	}
 	
 	@Override
@@ -92,18 +44,20 @@ public class VenusBlocks implements ICoreBlocks {
 
 	@Override
 	public void registerBlocks() {
-		venusBasicBlock.registerBasicBlocks();
+		venusBlock.registerBasicBlocks();
+		sulfurTorch.registerBlock();
+		venusianTNT.registerBlock();
 	}
 
 	@Override
 	public void oreDictRegistration() {
-		OreDictionary.registerOre("oreSulfur", new ItemStack(VenusBlocks.venusBasicBlock, 1, venusBasicBlock.getIndex("venusOreSulfur")));
-		OreDictionary.registerOre("oreUranium", new ItemStack(VenusBlocks.venusBasicBlock, 1, venusBasicBlock.getIndex("venusOreUranium")));
-		OreDictionary.registerOre("oreRuby", new ItemStack(VenusBlocks.venusBasicBlock, 1, venusBasicBlock.getIndex("venusOreRuby")));
-		OreDictionary.registerOre("oreCrystal", new ItemStack(VenusBlocks.venusBasicBlock, 1, venusBasicBlock.getIndex("venusOreCrystal")));
-		OreDictionary.registerOre("oreTin", new ItemStack(VenusBlocks.venusBasicBlock, 1, venusBasicBlock.getIndex("venusOreTin")));
-		OreDictionary.registerOre("oreCopper", new ItemStack(VenusBlocks.venusBasicBlock, 1, venusBasicBlock.getIndex("venusOreCopper")));
-		OreDictionary.registerOre("oreIron", new ItemStack(VenusBlocks.venusBasicBlock, 1, venusBasicBlock.getIndex("venusOreIron")));
-		OreDictionary.registerOre("oreCoal", new ItemStack(VenusBlocks.venusBasicBlock, 1, venusBasicBlock.getIndex("venusOreCoal")));
+		OreDictionary.registerOre("oreSulfur", new ItemStack(VenusBlocks.venusBlock, 1, venusBlock.getIndex("venusOreSulfur")));
+		OreDictionary.registerOre("oreUranium", new ItemStack(VenusBlocks.venusBlock, 1, venusBlock.getIndex("venusOreUranium")));
+		OreDictionary.registerOre("oreRuby", new ItemStack(VenusBlocks.venusBlock, 1, venusBlock.getIndex("venusOreRuby")));
+		OreDictionary.registerOre("oreCrystal", new ItemStack(VenusBlocks.venusBlock, 1, venusBlock.getIndex("venusOreCrystal")));
+		OreDictionary.registerOre("oreTin", new ItemStack(VenusBlocks.venusBlock, 1, venusBlock.getIndex("venusOreTin")));
+		OreDictionary.registerOre("oreCopper", new ItemStack(VenusBlocks.venusBlock, 1, venusBlock.getIndex("venusOreCopper")));
+		OreDictionary.registerOre("oreIron", new ItemStack(VenusBlocks.venusBlock, 1, venusBlock.getIndex("venusOreIron")));
+		OreDictionary.registerOre("oreCoal", new ItemStack(VenusBlocks.venusBlock, 1, venusBlock.getIndex("venusOreCoal")));
 	}
 }

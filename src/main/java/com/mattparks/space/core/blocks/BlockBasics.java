@@ -3,9 +3,6 @@ package com.mattparks.space.core.blocks;
 import java.util.List;
 
 import com.mattparks.space.core.SpaceCore;
-import com.mattparks.space.core.proxy.ClientProxy;
-import com.mattparks.space.venus.VenusCore;
-import com.mattparks.space.venus.blocks.VenusBlocks;
 
 import micdoodle8.mods.galacticraft.api.block.IDetectableResource;
 import micdoodle8.mods.galacticraft.api.block.IPartialSealableBlock;
@@ -17,24 +14,22 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
 /**
- * 
+ * A class used to construct many blocks under one name.
  */
 public class BlockBasics extends Block implements IDetectableResource, IPartialSealableBlock, IPlantableBlock, ITerraformableBlock {
 	private IIcon[] blockIcon;
 	
-	private BasicBlock[] blocks;
+	private BlockBuilder[] blocks;
 	private String texturePrefix;
 
-	public BlockBasics(String name, String texturePrefix, BasicBlock[] blocks) {
+	public BlockBasics(String name, String texturePrefix, BlockBuilder[] blocks) {
 		super(Material.rock);
 		this.setBlockName(name);
 		this.texturePrefix = texturePrefix;
@@ -42,7 +37,13 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 	}
 
 	public void registerBasicBlocks() {
-		SpaceCore.registerBlock(VenusBlocks.venusBasicBlock, ItemBlockUtil.class, blocks.length, true);
+		BlockBasicsItem.BLOCK_TYPES.put(this, new String[blocks.length]);
+		
+		for (int i = 0; i < blocks.length; i++) {
+			BlockBasicsItem.BLOCK_TYPES.get(this)[i] = blocks[i].type;
+		}
+		
+		SpaceCore.registerBlock(this, BlockBasicsItem.class, blocks.length, true);
 	}
 
 	@Override
@@ -50,7 +51,7 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 		blockIcon = new IIcon[blocks.length];
 		
 		for (int i = 0; i < blocks.length; i++) {
-			blockIcon[i] = par1IconRegister.registerIcon(texturePrefix + blocks[i].getType());
+			blockIcon[i] = par1IconRegister.registerIcon(texturePrefix + blocks[i].type);
 		}
 	}
 
@@ -72,15 +73,15 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 	}
 
 	@Override
-	public float getBlockHardness(World par1World, int par2, int par3, int par4) {
-		int meta = par1World.getBlockMetadata(par2, par3, par4);
-		return blocks[meta].getHardness();
+	public float getBlockHardness(World par1World, int x, int y, int z) {
+		int meta = par1World.getBlockMetadata(x, y, z);
+		return blocks[meta].hardness;
 	}
 
 	@Override
 	public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
 		int meta = world.getBlockMetadata(x, y, z);
-		float resistance = blocks[meta].getResistance();
+		float resistance = blocks[meta].resistance;
 		
 		if (resistance != -1) {
 			return resistance;
@@ -96,7 +97,7 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 
 	@Override
 	public int damageDropped(int meta) {
-		String damagedDrop = blocks[meta].getDamagedDrop();
+		String damagedDrop = blocks[meta].damagedDrop;
 		
 		if (damagedDrop != null) {
 			int index = getIndex(damagedDrop);
@@ -106,20 +107,10 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 		return meta;
 	}
 	
-	public int getIndex(String blockName) {
-		for (int i = 0; i < blocks.length; i++) {
-			if (blocks[i].getType().equals(blockName)) {
-				return i;
-			}
-		} 
-		
-		return -1;
-	}
-
 	@Override
 	public boolean isTerraformable(World world, int x, int y, int z) {
-		// TODO Auto-generated method stub
-		return false;
+        int meta = world.getBlockMetadata(x, y, z);
+		return blocks[meta].isTerraformable;
 	}
 
 	@Override
@@ -128,30 +119,28 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 	}
 
 	@Override
-	public boolean isPlantable(int metadata) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isPlantable(int meta) {
+		return blocks[meta].isPlantable;
 	}
 
 	@Override
 	public boolean isSealed(World world, int x, int y, int z, ForgeDirection direction) {
-		// TODO Auto-generated method stub
-		return false;
+        int meta = world.getBlockMetadata(x, y, z);
+		return blocks[meta].sealable;
 	}
 
 	@Override
-	public boolean isValueable(int metadata) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean isValueable(int meta) {
+		return blocks[meta].isValueable;
 	}
 
-	/**
-	 * 
-	 */
-	public interface BasicBlock {
-		public String getType();
-		public float getHardness();
-		public float getResistance();
-		public String getDamagedDrop();
+	public int getIndex(String blockName) {
+		for (int i = 0; i < blocks.length; i++) {
+			if (blocks[i].type.equals(blockName)) {
+				return i;
+			}
+		} 
+		
+		return -1;
 	}
 }

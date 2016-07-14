@@ -13,7 +13,7 @@ public class Constants {
 	/* Version Updater. */
 	public static final boolean CHECK_VERSIONS = true;
 	public static final String MOD_WEBSITE = "http://4space.mods.center";
-	public static final String VERSION_PAGE = "version.html";
+	public static final String VERSION_PAGE = "version_dev.html";
 	
 	/* Others. */
 	

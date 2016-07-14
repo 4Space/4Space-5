@@ -157,7 +157,7 @@ public class SpaceCore {
 		if (!blocksForCreativeTab.isEmpty()) {
 			SpacePair<Block, Integer> pair = blocksForCreativeTab.get(random.nextInt(blocksForCreativeTab.size()));
 			blockSelected = pair.getFirst();
-			blockMeta = random.nextInt(pair.getSecond());
+			blockMeta = pair.getSecond() == 0 ? 0 : random.nextInt(pair.getSecond());
 			blocksForCreativeTab.clear();
 		}
 		

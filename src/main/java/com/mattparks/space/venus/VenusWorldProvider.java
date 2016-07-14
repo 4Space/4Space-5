@@ -16,7 +16,6 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.biome.WorldChunkManager;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunkProvider;
-import net.minecraftforge.common.config.Configuration;
 
 public class VenusWorldProvider extends WorldProviderSpace implements IGalacticraftWorldProvider {
 	@Override

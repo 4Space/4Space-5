@@ -1,12 +1,11 @@
 package com.mattparks.space.core.builder;
 
-import net.minecraftforge.common.config.Configuration;
-
 import java.io.File;
 
 import com.mattparks.space.core.Constants;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.common.config.Configuration;
 
 /**
  * An abstract class used to creating new mod modules.
