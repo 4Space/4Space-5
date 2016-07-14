@@ -25,13 +25,13 @@ public abstract class ICoreMoon extends ICoreCelestial {
 	 */
 	public ICoreMoon(int dimensionID, String prefixAsset, String rocketGuiLocation, WorldProviderSpace worldProvider, ITeleportType teleportType) {
 		super(dimensionID, prefixAsset, rocketGuiLocation, worldProvider, teleportType);
-		this.moon = null; // Will be created in `registerPlanet()`.
+		this.moon = null; // Will be created in `registerMoon()`.
 	}
 
 	/**
-	 * Registers the planet with Galacticraft.
+	 * Registers the moon with Galacticraft.
 	 */
-	public void registerPlanet() {
+	public void registerMoon() {
 		moon = getNewMoon();
 		moon.setParentPlanet(getParent());
 		GalaxyRegistry.registerMoon(moon);
@@ -43,14 +43,14 @@ public abstract class ICoreMoon extends ICoreCelestial {
 	}
 	
 	/**
-	 * Gets the parent planet.
+	 * Gets the parent moon.
 	 * 
-	 * @return The planet to orbit around.
+	 * @return The moon to orbit around.
 	 */
 	public abstract Planet getParent();
 
 	/**
-	 * Creates a new planet for this ICoreMoon, do not define setParentPlanet from here.
+	 * Creates a new moon for this ICoreMoon, do not define setParentPlanet from here.
 	 * 
 	 * @return The new moon.
 	 */

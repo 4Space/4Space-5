@@ -1,4 +1,4 @@
-package com.mattparks.space.core.utils;
+package com.mattparks.space.core.blocks;
 
 import com.mattparks.space.core.proxy.ClientProxy;
 import net.minecraft.block.Block;

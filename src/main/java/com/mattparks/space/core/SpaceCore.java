@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Random;
 
 import com.mattparks.space.core.builder.ICoreModule;
+import com.mattparks.space.core.builder.celestials.ICoreMoon;
 import com.mattparks.space.core.builder.celestials.ICorePlanet;
 import com.mattparks.space.core.proxy.CommonProxy;
 import com.mattparks.space.core.utils.SpaceCreativeTab;
 import com.mattparks.space.core.utils.SpaceLog;
+import com.mattparks.space.core.utils.SpacePair;
 import com.mattparks.space.core.utils.SpaceVersionCheck;
 import com.mattparks.space.venus.VenusCore;
 
@@ -46,7 +48,7 @@ public class SpaceCore {
 	
 	public static List<ICoreModule> modulesList = new ArrayList<ICoreModule>();
 	
-	private static List<Block> blocksForCreativeTab = new ArrayList<Block>();
+	private static List<SpacePair<Block, Integer>> blocksForCreativeTab = new ArrayList<SpacePair<Block, Integer>>();
 	private static List<Item> itemsForCreativeTab = new ArrayList<Item>();
 
 	/**
@@ -56,11 +58,11 @@ public class SpaceCore {
 	 * @param itemBlockClass The blocks item class.
 	 * @param addToTabPool If true the block could be used as an create tab icon.
 	 */
-	public static void registerBlock(Block block, Class<? extends ItemBlock> itemBlockClass, boolean addToTabPool) {
+	public static void registerBlock(Block block, Class<? extends ItemBlock> itemBlockClass, int blockItemCount, boolean addToTabPool) {
 		GameRegistry.registerBlock(block, itemBlockClass, block.getUnlocalizedName().replace("tile.", ""));
 		
 		if (addToTabPool) {
-			blocksForCreativeTab.add(block);
+			blocksForCreativeTab.add(new SpacePair<Block, Integer>(block, blockItemCount));
 		}
 	}
 
@@ -121,11 +123,11 @@ public class SpaceCore {
 		}
 
 		// Registers module moons.
-	//	for (ICoreModule module : planetsList) {
-	//		if (module instanceof ICoreMoon) {
-	//			((ICoreMoon) module).registerMoon();
-	//		}
-	//	}
+		for (ICoreModule module : modulesList) {
+			if (module instanceof ICoreMoon) {
+				((ICoreMoon) module).registerMoon();
+			}
+		}
 		
 		proxy.init(event);
     }
@@ -147,20 +149,26 @@ public class SpaceCore {
 		Random random = new Random(1447);
 		
 		Block blockSelected = Blocks.dirt;
+		int blockMeta = 0;
+		
 		Item itemSelected = Items.chest_minecart;
+		int itemMeta = 0;
 		
 		if (!blocksForCreativeTab.isEmpty()) {
-			blockSelected = blocksForCreativeTab.get(random.nextInt(blocksForCreativeTab.size()));
-			blocksForCreativeTab.clear(); // TODO: Select meta data!
+			SpacePair<Block, Integer> pair = blocksForCreativeTab.get(random.nextInt(blocksForCreativeTab.size()));
+			blockSelected = pair.getFirst();
+			blockMeta = random.nextInt(pair.getSecond());
+			blocksForCreativeTab.clear();
 		}
 		
 		if (!itemsForCreativeTab.isEmpty()) {
 			itemSelected = itemsForCreativeTab.get(random.nextInt(itemsForCreativeTab.size()));
-			itemsForCreativeTab.clear(); // TODO: Select meta data?
+			/// itemMeta = random.nextInt(itemSelected...); // TODO: Select meta data?
+			itemsForCreativeTab.clear();
 		}
 		
-		spaceBlocksTab = new SpaceCreativeTab(CreativeTabs.getNextID(), "SpaceBlocks", Item.getItemFromBlock(blockSelected), 0);
-		spaceItemsTab = new SpaceCreativeTab(CreativeTabs.getNextID(), "SpaceItems", itemSelected, 0);
+		spaceBlocksTab = new SpaceCreativeTab(CreativeTabs.getNextID(), "SpaceBlocks", Item.getItemFromBlock(blockSelected), blockMeta);
+		spaceItemsTab = new SpaceCreativeTab(CreativeTabs.getNextID(), "SpaceItems", itemSelected, itemMeta);
 	}
 
 	@EventHandler

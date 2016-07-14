@@ -13,7 +13,6 @@ import com.mattparks.space.core.world.gen.GenBiomeDecorator.GenerateOre;
 import com.mattparks.space.core.world.gen.GenBiomeDecorator.GenerateStructure;
 import com.mattparks.space.core.world.gen.GenChunkProvider.GenerationSettings;
 import com.mattparks.space.venus.blocks.VenusBlocks;
-import com.mattparks.space.venus.blocks.items.ItemBlockBasicVenus.BlocksBasic;
 import com.mattparks.space.venus.items.VenusItems;
 
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
@@ -115,9 +114,9 @@ public class VenusCore extends ICorePlanet {
 		double valleyHeightMod = 55.0;
 		int craterProbibility = 333;
 		
-		SpacePair<Block, Integer> blockTop = new SpacePair<Block, Integer>(VenusBlocks.venusBasicBlock, BlocksBasic.SURFACE_ROCK.ordinal());
-		SpacePair<Block, Integer> blockFiller = new SpacePair<Block, Integer>(VenusBlocks.venusBasicBlock, BlocksBasic.SUB_ROCK.ordinal());
-		SpacePair<Block, Integer> blockLower = new SpacePair<Block, Integer>(VenusBlocks.venusBasicBlock, BlocksBasic.ROCK.ordinal());
+		SpacePair<Block, Integer> blockTop = new SpacePair<Block, Integer>(VenusBlocks.venusBasicBlock, VenusBlocks.venusBasicBlock.getIndex("venusSurfaceRock"));
+		SpacePair<Block, Integer> blockFiller = new SpacePair<Block, Integer>(VenusBlocks.venusBasicBlock, VenusBlocks.venusBasicBlock.getIndex("venusSubRock"));
+		SpacePair<Block, Integer> blockLower = new SpacePair<Block, Integer>(VenusBlocks.venusBasicBlock, VenusBlocks.venusBasicBlock.getIndex("venusRock"));
 		
 		return new GenerationSettings(terrainHeightMod, smallFeatureHeightMod, mountainHeightMod, valleyHeightMod, craterProbibility, blockTop, blockFiller, blockLower, getSpawnableMonsters());
 	}
