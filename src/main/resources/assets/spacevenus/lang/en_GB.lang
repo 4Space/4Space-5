@@ -44,19 +44,20 @@ item.sulfur_leggings.name=Sulfur Leggings
 item.jetpack.name=Jetpack
 
 # Blocks
-tile.venus_basic.surfaceRock.name=Venus Surface Rock
-tile.venus_basic.subSurface.name=Venus Sub-Surface Rock
-tile.venus_basic.rock.name=Venus Rock
-tile.venus_basic.cobblestone.name=Venus Cobblestone
-tile.venus_basic.dungeonBrick.name=Venus Dungeon Brick
-tile.venus_basic.coalOre.name=Venus Coal Ore
-tile.venus_basic.copperOre.name=Venus Copper Ore
-tile.venus_basic.crystalOre.name=Venus Crystal Ore
-tile.venus_basic.rubyOre.name=Venus Ruby Ore
-tile.venus_basic.uraniumOre.name=Venus Uranium Ore
-tile.venus_basic.ironOre.name=Venus Iron Ore
-tile.venus_basic.sulfurOre.name=Venus Sulfur Ore
-tile.venus_basic.tinOre.name=Venus Tin Ore
+tile.venus_basic.venusSurfaceRock.name=Venus Surface Rock
+tile.venus_basic.venusSubRock.name=Venus Sub-Surface Rock
+tile.venus_basic.venusCobblestone.name=Venus Cobblestone
+tile.venus_basic.venusRock.name=Venus Rock
+tile.venus_basic.venusBrickDungeon.name=Venus Dungeon Brick
+tile.venus_basic.venusOreCoal.name=Venus Coal Ore
+tile.venus_basic.venusOreCopper.name=Venus Copper Ore
+tile.venus_basic.venusOreCrystal.name=Venus Crystal Ore
+tile.venus_basic.venusOreRuby.name=Venus Ruby Ore
+tile.venus_basic.venusOreUranium.name=Venus Uranium Ore
+tile.venus_basic.venusOreIron.name=Venus Iron Ore
+tile.venus_basic.venusOreSulfur.name=Venus Sulfur Ore
+tile.venus_basic.venusOreTin.name=Venus Tin Ore
+
 tile.venus_decor.uraniumBlock.name=Block of Uranium
 tile.venus_decor.crystalBlock.name=Block of Crystal
 tile.venus_decor.rubyBlock.name=Block of Ruby

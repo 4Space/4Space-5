@@ -2,6 +2,7 @@ package com.mattparks.space.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.mattparks.space.core.builder.ICoreModule;
 import com.mattparks.space.core.builder.celestials.ICorePlanet;
@@ -44,24 +45,37 @@ public class SpaceCore {
 	public static CreativeTabs spaceItemsTab;
 	
 	public static List<ICoreModule> modulesList = new ArrayList<ICoreModule>();
+	
+	private static List<Block> blocksForCreativeTab = new ArrayList<Block>();
+	private static List<Item> itemsForCreativeTab = new ArrayList<Item>();
 
 	/**
 	 * Registers a block with the game registry.
 	 * 
 	 * @param block The block to register.
 	 * @param itemBlockClass The blocks item class.
+	 * @param addToTabPool If true the block could be used as an create tab icon.
 	 */
-	public static void registerBlock(Block block, Class<? extends ItemBlock> itemBlockClass) {
+	public static void registerBlock(Block block, Class<? extends ItemBlock> itemBlockClass, boolean addToTabPool) {
 		GameRegistry.registerBlock(block, itemBlockClass, block.getUnlocalizedName().replace("tile.", ""));
+		
+		if (addToTabPool) {
+			blocksForCreativeTab.add(block);
+		}
 	}
 
 	/**
 	 * Registers a item with the game registry.
 	 * 
-	 * @param item The item to register.=
+	 * @param item The item to register.
+	 * @param addToTabPool If true the item could be used as an create tab icon.
 	 */
-	public static void registerItem(Item item) {
+	public static void registerItem(Item item, boolean addToTabPool) {
 		GameRegistry.registerItem(item, item.getUnlocalizedName().replace("item.", ""));
+
+		if (addToTabPool) {
+			itemsForCreativeTab.add(item);
+		}
 	}
 
 	/**
@@ -120,14 +134,33 @@ public class SpaceCore {
     public void postInit(FMLPostInitializationEvent event) {
 		SpaceLog.severe("Post-Init");
 		
-		spaceBlocksTab = new SpaceCreativeTab(CreativeTabs.getNextID(), "SpaceBlocks", Item.getItemFromBlock(Blocks.dirt), 0);
-		spaceItemsTab = new SpaceCreativeTab(CreativeTabs.getNextID(), "SpaceItems", Items.chest_minecart, 0);
+		createCreativeTabs();
 		
 		for (ICoreModule planet : modulesList) {
 			planet.loadRecipes();
 		}
 		
 		proxy.postInit(event);
+	}
+	
+	private void createCreativeTabs() {
+		Random random = new Random(1447);
+		
+		Block blockSelected = Blocks.dirt;
+		Item itemSelected = Items.chest_minecart;
+		
+		if (!blocksForCreativeTab.isEmpty()) {
+			blockSelected = blocksForCreativeTab.get(random.nextInt(blocksForCreativeTab.size()));
+			blocksForCreativeTab.clear(); // TODO: Select meta data!
+		}
+		
+		if (!itemsForCreativeTab.isEmpty()) {
+			itemSelected = itemsForCreativeTab.get(random.nextInt(itemsForCreativeTab.size()));
+			itemsForCreativeTab.clear(); // TODO: Select meta data?
+		}
+		
+		spaceBlocksTab = new SpaceCreativeTab(CreativeTabs.getNextID(), "SpaceBlocks", Item.getItemFromBlock(blockSelected), 0);
+		spaceItemsTab = new SpaceCreativeTab(CreativeTabs.getNextID(), "SpaceItems", itemSelected, 0);
 	}
 
 	@EventHandler

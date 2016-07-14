@@ -341,7 +341,7 @@ public class GenChunkProvider extends ChunkProviderGenerate {
 		protected List<SpawnListEntry> spawnableMonsters;
 		
 		public GenerationSettings(double terrainHeightMod, double smallFeatureHeightMod, double mountainHeightMod, double valleyHeightMod, int craterProbibility, 
-				SpacePair<Block, Byte> blockTop, SpacePair<Block, Byte> blockFiller, SpacePair<Block, Byte> blockLower,
+				SpacePair<Block, Integer> blockTop, SpacePair<Block, Integer> blockFiller, SpacePair<Block, Integer> blockLower,
 				List<SpawnListEntry> spawnableMonsters) {
 			this.terrainHeightMod = terrainHeightMod;
 			this.smallFeatureHeightMod = smallFeatureHeightMod;
@@ -349,9 +349,9 @@ public class GenChunkProvider extends ChunkProviderGenerate {
 			this.valleyHeightMod = valleyHeightMod;
 			this.craterProbibility = craterProbibility;
 			
-			this.blockTop = blockTop;
-			this.blockFiller = blockFiller;
-			this.blockLower = blockLower;
+			this.blockTop = new SpacePair<Block, Byte>(blockTop.getFirst(), new Byte("" + blockTop.getSecond()));
+			this.blockFiller = new SpacePair<Block, Byte>(blockFiller.getFirst(), new Byte("" + blockFiller.getSecond()));
+			this.blockLower = new SpacePair<Block, Byte>(blockLower.getFirst(), new Byte("" + blockLower.getSecond()));
 			
 			this.spawnableMonsters = spawnableMonsters;
 		}

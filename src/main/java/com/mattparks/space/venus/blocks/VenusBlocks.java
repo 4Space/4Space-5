@@ -22,7 +22,7 @@ public class VenusBlocks implements ICoreBlocks {
 
 	@Override
 	public void registerBlocks() {
-		SpaceCore.registerBlock(VenusBlocks.venusBasicBlock, ItemBlockBasicVenus.class);
+		SpaceCore.registerBlock(VenusBlocks.venusBasicBlock, ItemBlockBasicVenus.class, true);
 	}
 
 	@Override

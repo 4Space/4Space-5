@@ -113,7 +113,7 @@ public class VenusWorldProvider extends WorldProviderSpace implements IGalacticr
 			f2 = 1.0f;
 		}
 
-		return f2 * f2 * 0.65f;
+		return f2 * f2 * 0.65f; // 65% star brightness.
 	}
 
 	@Override
