@@ -1,4 +1,4 @@
-package com.mattparks.space.core.tick;
+package com.mattparks.space.core.music;
 
 import com.mattparks.space.core.SpaceCore;
 import com.mattparks.space.core.builder.ICoreModule;
@@ -18,7 +18,7 @@ import net.minecraft.client.multiplayer.WorldClient;
 /**
  * A tick handler run from the client side.
  */
-public class TickHandlerClient {
+public class MusicHandlerClient {
 	public static boolean checkedVersion = true;
 
 	@SubscribeEvent
@@ -29,9 +29,9 @@ public class TickHandlerClient {
 
 		// Starts a version check.
 		if (event.phase == Phase.START) {
-			if (world != null && TickHandlerClient.checkedVersion) {
+			if (world != null && MusicHandlerClient.checkedVersion) {
 				SpaceVersionCheck.startCheck();
-				TickHandlerClient.checkedVersion = false;
+				MusicHandlerClient.checkedVersion = false;
 			}
 		}
 

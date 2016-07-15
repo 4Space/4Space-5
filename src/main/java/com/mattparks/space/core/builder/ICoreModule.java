@@ -3,8 +3,10 @@ package com.mattparks.space.core.builder;
 import java.io.File;
 
 import com.mattparks.space.core.Constants;
+import com.mattparks.space.core.tick.TickerSpaceMusic;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.config.Configuration;
 
 /**
@@ -31,6 +33,9 @@ public abstract class ICoreModule {
 		this.configuration.save();
 	}
 	
+	/**
+	 * Used to load values from the config.
+	 */
 	public abstract void loadFromConfig();
 
 	/**
@@ -55,7 +60,7 @@ public abstract class ICoreModule {
 			getItems().registerHarvestLevels();
 		}
 	}
-	
+
 	/**
 	 * The implementation for the planets blocks.
 	 * 
@@ -94,6 +99,15 @@ public abstract class ICoreModule {
 	 * Registers any other type of entity.
 	 */
 	public abstract void registerOtherEntities();
+	
+	/**
+	 * Gets the optional music player.
+	 * 
+	 * @param minecraft The current minecraft instance.
+	 * 
+	 * @return The optional music tick player.
+	 */
+	public abstract TickerSpaceMusic getSpaceMusic(Minecraft minecraft);
 
 	/**
 	 * Loads crafting and smelting recipes to minecraft.

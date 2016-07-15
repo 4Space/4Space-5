@@ -16,7 +16,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.google.common.collect.Maps;
 import com.mattparks.space.core.Constants;
-import com.mattparks.space.core.tick.TickHandlerClient;
+import com.mattparks.space.core.music.MusicHandlerClient;
 import com.mattparks.space.core.utils.SpaceLog;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -55,7 +55,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		FMLCommonHandler.instance().bus().register(new TickHandlerClient());
+		FMLCommonHandler.instance().bus().register(new MusicHandlerClient());
 		setupCapes();
 		super.init(event);
 	}

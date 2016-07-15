@@ -1,5 +1,6 @@
 package com.mattparks.space.core;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,6 +9,7 @@ import com.mattparks.space.core.builder.ICoreModule;
 import com.mattparks.space.core.builder.celestials.ICoreMoon;
 import com.mattparks.space.core.builder.celestials.ICorePlanet;
 import com.mattparks.space.core.proxy.CommonProxy;
+import com.mattparks.space.core.tick.TickerSpaceMusic;
 import com.mattparks.space.core.utils.SpaceCreativeTab;
 import com.mattparks.space.core.utils.SpaceLog;
 import com.mattparks.space.core.utils.SpacePair;
@@ -25,7 +27,9 @@ import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import micdoodle8.mods.galacticraft.core.util.VersionUtil;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -138,11 +142,22 @@ public class SpaceCore {
 		
 		createCreativeTabs();
 		
-		for (ICoreModule planet : modulesList) {
-			planet.loadRecipes();
+		for (ICoreModule module : modulesList) {
+			loadMusic(module.getSpaceMusic(Minecraft.getMinecraft()));
+			module.loadRecipes();
 		}
 		
 		proxy.postInit(event);
+	}
+	
+	private void loadMusic(TickerSpaceMusic spaceMusic) {
+		try {
+			Field ftc = Minecraft.getMinecraft().getClass().getDeclaredField(VersionUtil.getNameDynamic(VersionUtil.KEY_FIELD_MUSICTICKER));
+			ftc.setAccessible(true);
+			ftc.set(Minecraft.getMinecraft(), spaceMusic);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private void createCreativeTabs() {

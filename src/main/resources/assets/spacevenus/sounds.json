@@ -1,0 +1,19 @@
+{
+  "spaceCore.venusMusic": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "music/venus_1",
+        "stream": true
+      },
+      {
+        "name": "music/venus_2",
+        "stream": true
+      },
+      {
+        "name": "music/venus_bells",
+        "stream": true
+      }
+    ]
+  }
+}

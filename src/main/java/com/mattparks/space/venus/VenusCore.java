@@ -7,6 +7,7 @@ import com.mattparks.space.core.builder.ICoreBlocks;
 import com.mattparks.space.core.builder.ICoreItems;
 import com.mattparks.space.core.builder.celestials.ICorePlanet;
 import com.mattparks.space.core.teleport.TeleportTypeBallons;
+import com.mattparks.space.core.tick.TickerSpaceMusic;
 import com.mattparks.space.core.utils.SpaceEntityUtil;
 import com.mattparks.space.core.utils.SpacePair;
 import com.mattparks.space.core.world.gen.GenBiomeDecorator;
@@ -32,6 +33,7 @@ import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedSpider;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedZombie;
 import micdoodle8.mods.galacticraft.core.util.RecipeUtil;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -71,7 +73,7 @@ public class VenusCore extends ICorePlanet {
 	public int getBiomeID() {
 		return biomeID;
 	}
-	
+
 	@Override
 	public ICoreBlocks getBlocks() {
 		return new VenusBlocks();
@@ -253,6 +255,11 @@ public class VenusCore extends ICorePlanet {
 		return new GenBiomeDecorator(oreList, structureList);
 	}
 
+	@Override
+	public TickerSpaceMusic getSpaceMusic(Minecraft minecraft) {
+		return new TickerSpaceMusic(minecraft, this, "spaceCore.venusMusic");
+	}
+	
 	@Override
 	public List<SpawnListEntry> getSpawnableMonsters() {
 		List<SpawnListEntry> spawnableMonsters = new ArrayList<SpawnListEntry>();
