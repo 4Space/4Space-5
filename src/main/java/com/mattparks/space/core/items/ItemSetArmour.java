@@ -23,7 +23,10 @@ public class ItemSetArmour {
 	private ArmorMaterial material;
 	private int renderIndex;
 	
-	private ItemArmour helmet, chestplate, leggings, boots;
+	public ItemArmour helmet;
+	public ItemArmour chestplate;
+	public ItemArmour leggings;
+	public ItemArmour boots;
 
 	public ItemSetArmour(String texturePrefix, ArmorMaterial material) {
 		this.texturePrefix = texturePrefix;

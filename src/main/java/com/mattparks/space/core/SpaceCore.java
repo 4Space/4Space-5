@@ -146,7 +146,7 @@ public class SpaceCore {
 	}
 	
 	private void createCreativeTabs() {
-		Random random = new Random(1447);
+		Random random = new Random();
 		
 		Block blockSelected = Blocks.dirt;
 		int blockMeta = 0;

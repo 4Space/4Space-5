@@ -59,7 +59,7 @@ tile.venusBlock.venusBlockCrystal.name=Block of Crystal
 tile.venusBlock.venusBlockRuby.name=Block of Ruby
 tile.venusBlock.venusBlockSulfur.name=Block of Sulfur
 tile.sulfurTorch.name=Sulfur Torch
-tile.evolvedBlaze_egg.name=Evolved Blaze Egg
+tile.evolvedBlazeEgg.name=Evolved Blaze Egg
 tile.venusianTNT.name=Venusian TNT
 
 # Guis
