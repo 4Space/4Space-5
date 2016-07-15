@@ -25,7 +25,7 @@ public class VenusBlocks implements ICoreBlocks {
 				new BlockBuilder("venusOreSulfur").setHardness(2.5f).setValueable(true),
 				new BlockBuilder("venusOreUranium").setHardness(2.5f).setValueable(true),
 				new BlockBuilder("venusOreRuby").setHardness(2.5f).setValueable(true),
-				new BlockBuilder("venusOreCrystal").setHardness(2.5f).setValueable(true),
+				new BlockBuilder("venusOrePellucidum").setHardness(2.5f).setValueable(true),
 				new BlockBuilder("venusOreTin").setHardness(2.5f).setValueable(true),
 				new BlockBuilder("venusOreCopper").setHardness(2.5f).setValueable(true),
 				new BlockBuilder("venusOreIron").setHardness(2.5f).setValueable(true),
@@ -33,7 +33,7 @@ public class VenusBlocks implements ICoreBlocks {
 				new BlockBuilder("venusBlockSulfur").setHardness(4.0f),
 				new BlockBuilder("venusBlockUranium").setHardness(4.0f),
 				new BlockBuilder("venusBlockRuby").setHardness(4.0f),
-				new BlockBuilder("venusBlockCrystal").setHardness(4.0f),
+				new BlockBuilder("venusBlockPellucidum").setHardness(4.0f),
 		});
 		sulfurTorch = new BlockSulfurTorch("sulfurTorch");
 		venusianTNT = new BlockVenusianTNT("venusianTNT");
