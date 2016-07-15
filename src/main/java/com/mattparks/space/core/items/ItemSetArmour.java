@@ -1,30 +1,31 @@
 package com.mattparks.space.core.items;
 
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
+import com.mattparks.space.core.SpaceCore;
+import com.mattparks.space.core.proxy.ClientProxy;
+
+import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import com.mattparks.space.core.SpaceCore;
-import com.mattparks.space.core.proxy.ClientProxy;
 
 /**
  * A class for creating a basic set of armour.
  */
-public class ItemFullArmour {
+public class ItemSetArmour {
 	private String texturePrefix;
 	private ArmorMaterial material;
+	private int renderIndex;
 	
 	private ItemArmour helmet, chestplate, leggings, boots;
 
-	public ItemFullArmour(String texturePrefix, ArmorMaterial material) {
+	public ItemSetArmour(String texturePrefix, ArmorMaterial material) {
 		this.texturePrefix = texturePrefix;
 		this.material = material;
 		
@@ -32,6 +33,8 @@ public class ItemFullArmour {
 		this.chestplate = new ItemArmour(material.name()  + "Chestplate", 7, 1);
 		this.leggings = new ItemArmour(material.name()  + "Leggings", 7, 2);
 		this.boots = new ItemArmour(material.name()  + "Boots", 7, 3);
+		
+		this.renderIndex = RenderingRegistry.addNewArmourRendererPrefix(material.name());
 	}
 
 	public void registerItem() {

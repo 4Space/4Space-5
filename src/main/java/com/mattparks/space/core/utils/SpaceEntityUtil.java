@@ -29,7 +29,7 @@ public class SpaceEntityUtil {
 	 */
 	public static void registerSpaceCreature(Class<? extends Entity> var0, String var1, int back, int fore) {
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-			LanguageRegistry.instance().addStringLocalization("entity." + var1 + ".name", SpaceTranslate.translate("entity.SpaceCore." + var1 + ".name"));
+			LanguageRegistry.instance().addStringLocalization("entity." + var1 + ".name", SpaceTranslate.translate("entity.spaceCore." + var1 + ".name"));
 		}
 
 		int newID = EntityRegistry.instance().findGlobalUniqueEntityId();
@@ -48,7 +48,7 @@ public class SpaceEntityUtil {
 	 */
 	public static void registerSpaceNonMobEntity(Class<? extends Entity> var0, String var1, int trackingDistance, int updateFreq, boolean sendVel) {
 		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-			LanguageRegistry.instance().addStringLocalization("entity." + var1 + ".name", SpaceTranslate.translate("entity.SpaceCore." + var1 + ".name"));
+			LanguageRegistry.instance().addStringLocalization("entity." + var1 + ".name", SpaceTranslate.translate("entity.spaceCore." + var1 + ".name"));
 		}
 
 		EntityRegistry.registerModEntity(var0, var1, nextInternalID(), SpaceCore.instance, trackingDistance, updateFreq, sendVel);

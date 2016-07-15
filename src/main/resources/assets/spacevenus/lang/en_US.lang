@@ -19,26 +19,26 @@ item.batterySulfur.name=Sulfur Battery
 item.batteryUranium.name=Uranium Battery
 
 # Tools
-item.ruby_axe.name=Ruby Axe
-item.ruby_hoe.name=Ruby Hoe
-item.ruby_pickaxe.name=Ruby Pickaxe
-item.ruby_spade.name=Ruby Shovel
-item.ruby_sword.name=Ruby Sword
-item.sulfur_axe.name=Sulfur Axe
-item.sulfur_hoe.name=Sulfur Hoe
-item.sulfur_pickaxe.name=Sulfur Pickaxe
-item.sulfur_spade.name=Sulfur Shovel
-item.sulfur_sword.name=Sulfur Sword
+item.rubyAxe.name=Ruby Axe
+item.rubyHoe.name=Ruby Hoe
+item.rubyPickaxe.name=Ruby Pickaxe
+item.rubySpade.name=Ruby Shovel
+item.rubySword.name=Ruby Sword
+item.sulfurAxe.name=Sulfur Axe
+item.sulfurHoe.name=Sulfur Hoe
+item.sulfurPickaxe.name=Sulfur Pickaxe
+item.sulfurSpade.name=Sulfur Shovel
+item.sulfurSword.name=Sulfur Sword
 
 # Armor
-item.ruby_boots.name=Ruby Boots
-item.ruby_chestplate.name=Ruby Chestplate
-item.ruby_helmet.name=Ruby Helmet
-item.ruby_leggings.name=Ruby Leggings
-item.sulfur_boots.name=Sulfur Boots
-item.sulfur_chestplate.name=Sulfur Chestplate
-item.sulfur_helmet.name=Sulfur Helmet
-item.sulfur_leggings.name=Sulfur Leggings
+item.rubyBoots.name=Ruby Boots
+item.rubyChestplate.name=Ruby Chestplate
+item.rubyHelmet.name=Ruby Helmet
+item.rubyLeggings.name=Ruby Leggings
+item.sulfurBoots.name=Sulfur Boots
+item.sulfurChestplate.name=Sulfur Chestplate
+item.sulfurHelmet.name=Sulfur Helmet
+item.sulfurLeggings.name=Sulfur Leggings
 
 # Blocks
 tile.venusBlock.venusSurfaceRock.name=Venus Surface Rock
@@ -67,8 +67,8 @@ tile.venusianTNT.name=Venusian TNT
 # Schematics
 
 # Entity
-entity.SpaceCore.EvolvedBlaze.name=Evolved Blaze
-entity.SpaceCore.VenusianVillager.name=Venusian Villager
-entity.SpaceCore.VenusianTNT.name=Live Venusian TNT
+entity.spaceCore.EvolvedBlaze.name=Evolved Blaze
+entity.spaceCore.VenusianVillager.name=Venusian Villager
+entity.spaceCore.VenusianTNT.name=Live Venusian TNT
 
 # Others
