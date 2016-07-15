@@ -14,7 +14,9 @@ import com.mattparks.space.core.world.gen.GenBiomeDecorator.GenerateOre;
 import com.mattparks.space.core.world.gen.GenBiomeDecorator.GenerateStructure;
 import com.mattparks.space.core.world.gen.GenChunkProvider.GenerationSettings;
 import com.mattparks.space.venus.blocks.VenusBlocks;
+import com.mattparks.space.venus.entities.EntityEvolvedBlaze;
 import com.mattparks.space.venus.entities.EntityVenusianTNT;
+import com.mattparks.space.venus.entities.render.RenderEvolvedBlaze;
 import com.mattparks.space.venus.entities.render.RenderVenusianTNT;
 import com.mattparks.space.venus.items.VenusItems;
 
@@ -110,6 +112,11 @@ public class VenusCore extends ICorePlanet {
 
 	@Override
 	public void registerCreatures() {
+		SpaceEntityUtil.registerSpaceCreature(EntityEvolvedBlaze.class, "EvolvedBlaze", -771829, -870131);
+		RenderingRegistry.registerEntityRenderingHandler(EntityEvolvedBlaze.class, new RenderEvolvedBlaze());
+
+	//	SpaceUtil.registerSpaceCreature(EntityVenusianVillager.class, "VenusianVillager", SpaceUtil.to32BitColor(255, 103, 181, 145), 16167425);
+	//	RenderingRegistry.registerEntityRenderingHandler(EntityVenusianVillager.class, new RenderVenusianVillager());
 	}
 
 	@Override
@@ -181,7 +188,7 @@ public class VenusCore extends ICorePlanet {
 		spawnableMonsters.add(new SpawnListEntry(EntityEvolvedZombie.class, 5, 1, 1));
 		spawnableMonsters.add(new SpawnListEntry(EntityEvolvedSpider.class, 3, 1, 1));
 		spawnableMonsters.add(new SpawnListEntry(EntityEvolvedCreeper.class, 2, 1, 1));
-	//	spawnableMonsterList.add(new SpawnListEntry(EntityEvolvedBlaze.class, 4, 1, 1));
+		spawnableMonsters.add(new SpawnListEntry(EntityEvolvedBlaze.class, 4, 1, 1));
 		return spawnableMonsters;
 	}
 }

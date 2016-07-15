@@ -5,12 +5,15 @@ import org.lwjgl.opengl.GL11;
 import com.mattparks.space.venus.blocks.VenusBlocks;
 import com.mattparks.space.venus.entities.EntityVenusianTNT;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 
+@SideOnly(Side.CLIENT)
 public class RenderVenusianTNT extends Render {
 	private final RenderBlocks blockRenderer = new RenderBlocks();
 

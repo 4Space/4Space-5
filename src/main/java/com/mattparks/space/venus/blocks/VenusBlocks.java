@@ -12,6 +12,7 @@ public class VenusBlocks implements ICoreBlocks {
 	public static BlockBasics venusBlock;
 	public static BlockSulfurTorch sulfurTorch;
 	public static BlockVenusianTNT venusianTNT;
+	public static BlockEvolvedBlazeEgg evolvedBlazeEgg;
 	
 	@Override
 	public void initBlocks() {
@@ -36,6 +37,7 @@ public class VenusBlocks implements ICoreBlocks {
 		});
 		sulfurTorch = new BlockSulfurTorch("sulfurTorch");
 		venusianTNT = new BlockVenusianTNT("venusianTNT");
+		evolvedBlazeEgg = new BlockEvolvedBlazeEgg("evolvedBlazeEgg");
 	}
 	
 	@Override
@@ -47,6 +49,7 @@ public class VenusBlocks implements ICoreBlocks {
 		venusBlock.registerBlock();
 		sulfurTorch.registerBlock();
 		venusianTNT.registerBlock();
+		evolvedBlazeEgg.registerBlock();
 	}
 
 	@Override

@@ -46,6 +46,10 @@ public class ItemSetTools {
 		SpaceCore.registerItem(spade, true);
 		SpaceCore.registerItem(axe, true);
 		SpaceCore.registerItem(hoe, true);
+
+		pickaxe.setHarvestLevel("pickaxe", 4);
+		spade.setHarvestLevel("shovel", 4);
+		axe.setHarvestLevel("axe", 4);
 	}
 
 	public class ItemAxeBasic extends ItemAxe {
