@@ -2,6 +2,8 @@ package com.mattparks.space.core.world.gen;
 
 import java.util.Random;
 
+import com.mattparks.space.core.world.gen.GenChunkProvider.GenerationSettings;
+
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.MapGenBaseMeta;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -9,10 +11,14 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class GenMapGenCave extends MapGenBaseMeta {
-	public static final int BREAK_THROUGH_CHANCE = 25; // 1 in n chance
+	private GenerationSettings settings;
+	
+	public GenMapGenCave(GenerationSettings settings) {
+		this.settings = settings;
+	}
 
 	protected void generateLargeCaveNode(long par1, int par3, int par4, Block[] blockIdArray, byte[] metaArray, double par6, double par8, double par10) {
-		this.generateCaveNode(par1, par3, par4, blockIdArray, metaArray, par6, par8, par10, 1.0F + this.rand.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
+		this.generateCaveNode( par1, par3, par4, blockIdArray, metaArray, par6, par8, par10, 1.0F + this.rand.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
 	}
 
 	protected void generateCaveNode(long par1, int par3, int par4, Block[] blockIdArray, byte[] metaArray, double par6, double par8, double par10, float par12, float par13, float par14, int par15, int par16, double par17) {
@@ -122,28 +128,28 @@ public class GenMapGenCave extends MapGenBaseMeta {
 					if (true) {
 
 						for (int localY = j2; localY < k2; localY++) {
-							final double yfactor = (localY + 0.5D - par8) / d7;
+							final double yfactor = (localY + 0.5 - par8) / d7;
 							final double yfactorSq = yfactor * yfactor;
 
 							for (int localX = l1; localX < i2; localX++) {
-								final double zfactor = (localX + par3 * 16 + 0.5D - par6) / d6;
+								final double zfactor = (localX + par3 * 16 + 0.5 - par6) / d6;
 								final double zfactorSq = zfactor * zfactor;
 
 								for (int localZ = l2; localZ < i3; localZ++) {
-									final double xfactor = (localZ + par4 * 16 + 0.5D - par10) / d6;
+									final double xfactor = (localZ + par4 * 16 + 0.5 - par10) / d6;
 									final double xfactorSq = xfactor * xfactor;
 
-									if (xfactorSq + zfactorSq < 1.0D) {
+									if (xfactorSq + zfactorSq < 1.0) {
 										final int coords = (localX * 16 + localZ) * 256 + localY;
 
-										if (yfactor > -0.7D && xfactorSq + yfactorSq + zfactorSq < 1.0D) {
-										//	if (blockIdArray[coords] == GenChunkProvider.BLOCK_LOWER.getFirst()) {
+										if (yfactor > -0.7 && xfactorSq + yfactorSq + zfactorSq < 1.0) {
+											if (blockIdArray[coords] == settings.blockLower.getFirst()) { // TODO: use meta!
 												if (metaArray[coords] == 1 || metaArray[coords] == 2) {
-													blockIdArray[coords] = Blocks.air;
-												} else if (metaArray[coords] == 0 && random.nextInt(BREAK_THROUGH_CHANCE) == 0) {
-													blockIdArray[coords] = Blocks.air;
+													blockIdArray[coords] = Blocks.lava;
+												} else if (metaArray[coords] == 0 && random.nextInt(settings.caveChance) == 0) {
+													blockIdArray[coords] = Blocks.lava;
 												}
-										//	}
+											}
 										}
 									}
 								}
@@ -179,15 +185,15 @@ public class GenMapGenCave extends MapGenBaseMeta {
 			}
 
 			for (int var16 = 0; var16 < var15; ++var16) {
-				final float var17 = this.rand.nextFloat() * (float) Math.PI * 2.0F;
-				final float var18 = (this.rand.nextFloat() - 0.5F) * 2.0F / 8.0F;
-				float var19 = this.rand.nextFloat() * 2.0F + this.rand.nextFloat();
+				final float var17 = this.rand.nextFloat() * (float) Math.PI * 2.0f;
+				final float var18 = (this.rand.nextFloat() - 0.5f) * 2.0f / 8.0f;
+				float var19 = this.rand.nextFloat() * 2.0f + this.rand.nextFloat();
 
 				if (this.rand.nextInt(10) == 0) {
-					var19 *= this.rand.nextFloat() * this.rand.nextFloat() * 3.0F + 1.0F;
+					var19 *= this.rand.nextFloat() * this.rand.nextFloat() * 3.0f + 1.0f;
 				}
 
-				this.generateCaveNode(this.rand.nextLong(), par4, par5, blockIdArray, metaArray, var9, var11, var13, var19, var17, var18, 0, 0, 1.0D);
+				this.generateCaveNode(this.rand.nextLong(), par4, par5, blockIdArray, metaArray, var9, var11, var13, var19, var17, var18, 0, 0, 1.0);
 			}
 		}
 	}

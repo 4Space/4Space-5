@@ -1,59 +1,66 @@
 package com.mattparks.space.core.music;
 
-import com.mattparks.space.core.SpaceCore;
-import com.mattparks.space.core.builder.ICoreModule;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mattparks.space.core.builder.celestials.ICoreCelestial;
-import com.mattparks.space.core.utils.SpaceVersionCheck;
+import com.mattparks.space.core.utils.SpacePair;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
-import cpw.mods.fml.common.gameevent.TickEvent.Phase;
-import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
-import micdoodle8.mods.galacticraft.core.client.CloudRenderer;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.audio.MusicTicker;
+import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.multiplayer.WorldClient;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.util.EnumHelper;
 
 /**
- * A tick handler run from the client side.
+ * A client music player.
  */
-public class MusicHandlerClient {
-	public static boolean checkedVersion = true;
+public class MusicHandlerClient extends MusicTicker {
+	public static final Class[][] COMMON_TYPES = { { MusicTicker.MusicType.class, ResourceLocation.class, int.class, int.class }, };
+	public List<SpacePair<ICoreCelestial, MusicTicker.MusicType>> musicTypes;
+	
+	public MusicHandlerClient(Minecraft mc) {
+		super(mc);
+		musicTypes = new ArrayList<SpacePair<ICoreCelestial, MusicType>>();
+	}
+	
+	public void loadMusicType(ICoreCelestial celestialBody, String musicJson) {
+		musicTypes.add(new SpacePair<ICoreCelestial, MusicTicker.MusicType>(celestialBody, EnumHelper.addEnum(COMMON_TYPES, MusicTicker.MusicType.class, celestialBody.prefixAsset.toUpperCase() + "MUSIC", new ResourceLocation(celestialBody.prefixAsset, musicJson), 12000, 24000)));
+	}
 
-	@SubscribeEvent
-	public void onClientTick(ClientTickEvent event) {
-		Minecraft minecraft = FMLClientHandler.instance().getClient();
-		WorldClient world = minecraft.theWorld;
-		EntityClientPlayerMP player = minecraft.thePlayer;
-
-		// Starts a version check.
-		if (event.phase == Phase.START) {
-			if (world != null && MusicHandlerClient.checkedVersion) {
-				SpaceVersionCheck.startCheck();
-				MusicHandlerClient.checkedVersion = false;
+	@Override
+	public void update() {
+		MusicTicker.MusicType musictype = this.field_147677_b.func_147109_W();
+		WorldClient world = FMLClientHandler.instance().getWorldClient();
+		
+		for (SpacePair<ICoreCelestial, MusicTicker.MusicType> pair : musicTypes) {
+			if (world != null && pair.getFirst().instanceOfProvider(world.provider)) {
+				musictype = pair.getSecond();
+				break;
 			}
 		}
 
-		// Sets up the atmosphere for the world.
-		if (world != null) {
-			for (ICoreModule module : SpaceCore.modulesList) {
-				if (module instanceof ICoreCelestial) {
-					ICoreCelestial celestial = (ICoreCelestial) module;
-					
-					if (celestial.instanceOfProvider(world.provider)) {
-						if (world.provider.getSkyRenderer() == null) {
-							world.provider.setSkyRenderer(celestial.createSkyProvider((IGalacticraftWorldProvider) world.provider));
-						}
-
-						if (world.provider.getCloudRenderer() == null) {
-							world.provider.setCloudRenderer(new CloudRenderer());
-						}	
-						
-						break;
-					}
-				}
+		if (this.field_147678_c != null) {
+			if (!musictype.getMusicTickerLocation().equals(this.field_147678_c.getPositionedSoundLocation())) {
+				this.field_147677_b.getSoundHandler().stopSound(this.field_147678_c);
+				this.field_147676_d = MathHelper.getRandomIntegerInRange(this.field_147679_a, 0, musictype.func_148634_b() / 2);
 			}
+
+			if (!this.field_147677_b.getSoundHandler().isSoundPlaying(this.field_147678_c)) {
+				this.field_147678_c = null;
+				this.field_147676_d = Math.min(MathHelper.getRandomIntegerInRange(this.field_147679_a, musictype.func_148634_b(), musictype.func_148633_c()), this.field_147676_d);
+			}
+		}
+
+		if (this.field_147678_c == null && this.field_147676_d-- <= 0) {
+			this.field_147678_c = PositionedSoundRecord.func_147673_a(musictype.getMusicTickerLocation());
+			this.field_147677_b.getSoundHandler().playSound(this.field_147678_c);
+			this.field_147676_d = Integer.MAX_VALUE;
 		}
 	}
 }

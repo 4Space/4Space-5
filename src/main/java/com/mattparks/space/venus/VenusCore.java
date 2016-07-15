@@ -6,8 +6,8 @@ import java.util.List;
 import com.mattparks.space.core.builder.ICoreBlocks;
 import com.mattparks.space.core.builder.ICoreItems;
 import com.mattparks.space.core.builder.celestials.ICorePlanet;
+import com.mattparks.space.core.music.MusicHandlerClient;
 import com.mattparks.space.core.teleport.TeleportTypeBallons;
-import com.mattparks.space.core.tick.TickerSpaceMusic;
 import com.mattparks.space.core.utils.SpaceEntityUtil;
 import com.mattparks.space.core.utils.SpacePair;
 import com.mattparks.space.core.world.gen.GenBiomeDecorator;
@@ -23,6 +23,8 @@ import com.mattparks.space.venus.items.VenusItems;
 
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import micdoodle8.mods.galacticraft.api.galaxies.CelestialBody;
 import micdoodle8.mods.galacticraft.api.galaxies.Planet;
 import micdoodle8.mods.galacticraft.api.world.IAtmosphericGas;
@@ -186,18 +188,42 @@ public class VenusCore extends ICorePlanet {
 	@Override
 	public void registerCreatures() {
 		SpaceEntityUtil.registerSpaceCreature(EntityEvolvedBlaze.class, "EvolvedBlaze", -771829, -870131);
-		RenderingRegistry.registerEntityRenderingHandler(EntityEvolvedBlaze.class, new RenderEvolvedBlaze());
-
 	//	SpaceUtil.registerSpaceCreature(EntityVenusianVillager.class, "VenusianVillager", SpaceUtil.to32BitColor(255, 103, 181, 145), 16167425);
-	//	RenderingRegistry.registerEntityRenderingHandler(EntityVenusianVillager.class, new RenderVenusianVillager());
+
+		try {
+			loadCreaturesRenderers();
+		} catch(NoSuchMethodError e) {
+		//	e.printStackTrace();
+		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	private void loadCreaturesRenderers() {
+		RenderingRegistry.registerEntityRenderingHandler(EntityEvolvedBlaze.class, new RenderEvolvedBlaze());
+		//	RenderingRegistry.registerEntityRenderingHandler(EntityVenusianVillager.class, new RenderVenusianVillager());
 	}
 
 	@Override
 	public void registerOtherEntities() {
 		SpaceEntityUtil.registerSpaceNonMobEntity(EntityVenusianTNT.class, "VenusianTNT", 150, 1, true);
+
+		try {
+			loadOtherEntitiesRenderers();
+		} catch(NoSuchMethodError e) {
+		//	e.printStackTrace();
+		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	private void loadOtherEntitiesRenderers() {
 		RenderingRegistry.registerEntityRenderingHandler(EntityVenusianTNT.class, new RenderVenusianTNT());
 	}
 
+	@Override
+	public String getMusicJSON() {
+		return "spaceCore.venusMusic";
+	}
+	
 	@Override
 	public void loadRecipes() {
 	}
@@ -214,12 +240,13 @@ public class VenusCore extends ICorePlanet {
 		double mountainHeightMod = 111.0;
 		double valleyHeightMod = 55.0;
 		int craterProbibility = 333;
+		int caveChance = 25;
 		
 		SpacePair<Block, Integer> blockTop = new SpacePair<Block, Integer>(VenusBlocks.venusBlock, VenusBlocks.venusBlock.getIndex("venusSurfaceRock"));
 		SpacePair<Block, Integer> blockFiller = new SpacePair<Block, Integer>(VenusBlocks.venusBlock, VenusBlocks.venusBlock.getIndex("venusSubRock"));
 		SpacePair<Block, Integer> blockLower = new SpacePair<Block, Integer>(VenusBlocks.venusBlock, VenusBlocks.venusBlock.getIndex("venusRock"));
 		
-		return new GenerationSettings(terrainHeightMod, smallFeatureHeightMod, mountainHeightMod, valleyHeightMod, craterProbibility, blockTop, blockFiller, blockLower, getSpawnableMonsters());
+		return new GenerationSettings(terrainHeightMod, smallFeatureHeightMod, mountainHeightMod, valleyHeightMod, craterProbibility, caveChance, blockTop, blockFiller, blockLower, getSpawnableMonsters());
 	}
 	
 	@Override
@@ -255,11 +282,6 @@ public class VenusCore extends ICorePlanet {
 		return new GenBiomeDecorator(oreList, structureList);
 	}
 
-	@Override
-	public TickerSpaceMusic getSpaceMusic(Minecraft minecraft) {
-		return new TickerSpaceMusic(minecraft, this, "spaceCore.venusMusic");
-	}
-	
 	@Override
 	public List<SpawnListEntry> getSpawnableMonsters() {
 		List<SpawnListEntry> spawnableMonsters = new ArrayList<SpawnListEntry>();

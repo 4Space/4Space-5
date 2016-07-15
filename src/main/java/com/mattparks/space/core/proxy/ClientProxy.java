@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -17,6 +18,7 @@ import org.lwjgl.opengl.GL11;
 import com.google.common.collect.Maps;
 import com.mattparks.space.core.Constants;
 import com.mattparks.space.core.music.MusicHandlerClient;
+import com.mattparks.space.core.tick.TickHandlerClient;
 import com.mattparks.space.core.utils.SpaceLog;
 
 import cpw.mods.fml.client.FMLClientHandler;
@@ -29,6 +31,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import micdoodle8.mods.galacticraft.api.event.client.CelestialBodyRenderEvent;
 import micdoodle8.mods.galacticraft.core.client.render.ThreadDownloadImageDataGC;
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
+import micdoodle8.mods.galacticraft.core.util.VersionUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.IImageBuffer;
@@ -45,6 +48,7 @@ import net.minecraftforge.common.util.EnumHelper;
 public class ClientProxy extends CommonProxy {
 	public static final EnumRarity RARITY_SPACE_ITEM = EnumHelper.addRarity("SpaceRarity", EnumChatFormatting.RED, Constants.MOD_NAME);
 	public static final Minecraft MC_INSTANCE = FMLClientHandler.instance().getClient();
+	public static final MusicHandlerClient MUSIC_HANDLER_SPACE = new MusicHandlerClient(Minecraft.getMinecraft());
 	
 	private static Map<String, ResourceLocation> capesMap = Maps.newHashMap();
 	
@@ -55,7 +59,7 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void init(FMLInitializationEvent event) {
-		FMLCommonHandler.instance().bus().register(new MusicHandlerClient());
+		FMLCommonHandler.instance().bus().register(new TickHandlerClient());
 		setupCapes();
 		super.init(event);
 	}
@@ -133,6 +137,14 @@ public class ClientProxy extends CommonProxy {
 	
 	@Override
 	public void postInit(FMLPostInitializationEvent event) {
+		try {
+			Field ftc = Minecraft.getMinecraft().getClass().getDeclaredField(VersionUtil.getNameDynamic(VersionUtil.KEY_FIELD_MUSICTICKER));
+			ftc.setAccessible(true);
+			ftc.set(Minecraft.getMinecraft(), MUSIC_HANDLER_SPACE);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		super.postInit(event);
 	}
 

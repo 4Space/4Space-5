@@ -3,6 +3,7 @@ package com.mattparks.space.core.builder.celestials;
 import java.util.List;
 
 import com.mattparks.space.core.builder.ICoreModule;
+import com.mattparks.space.core.music.MusicHandlerClient;
 import com.mattparks.space.core.world.gen.GenBiomeDecorator;
 import com.mattparks.space.core.world.gen.GenChunkProvider.GenerationSettings;
 
@@ -10,6 +11,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import micdoodle8.mods.galacticraft.api.prefab.world.gen.WorldProviderSpace;
 import micdoodle8.mods.galacticraft.api.world.IGalacticraftWorldProvider;
 import micdoodle8.mods.galacticraft.api.world.ITeleportType;
+import net.minecraft.client.Minecraft;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.BiomeGenBase.SpawnListEntry;
 import net.minecraftforge.client.IRenderHandler;
@@ -43,6 +45,13 @@ public abstract class ICoreCelestial extends ICoreModule {
 	public abstract int getDimensionID();
 	
 	public abstract int getBiomeID();
+
+	/**
+	 * Gets the optional music player json file.
+	 * 
+	 * @return The optional music json file.
+	 */
+	public abstract String getMusicJSON();
 
 	/**
 	 * Creates the sky provider for the celestial body.

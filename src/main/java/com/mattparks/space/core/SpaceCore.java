@@ -1,6 +1,7 @@
 package com.mattparks.space.core;
 
 import java.lang.reflect.Field;
+import com.mattparks.space.core.builder.celestials.ICoreCelestial;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -8,8 +9,9 @@ import java.util.Random;
 import com.mattparks.space.core.builder.ICoreModule;
 import com.mattparks.space.core.builder.celestials.ICoreMoon;
 import com.mattparks.space.core.builder.celestials.ICorePlanet;
+import com.mattparks.space.core.music.MusicHandlerClient;
+import com.mattparks.space.core.proxy.ClientProxy;
 import com.mattparks.space.core.proxy.CommonProxy;
-import com.mattparks.space.core.tick.TickerSpaceMusic;
 import com.mattparks.space.core.utils.SpaceCreativeTab;
 import com.mattparks.space.core.utils.SpaceLog;
 import com.mattparks.space.core.utils.SpacePair;
@@ -27,6 +29,8 @@ import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import micdoodle8.mods.galacticraft.core.util.VersionUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -41,7 +45,7 @@ import net.minecraft.item.ItemBlock;
  */
 @Mod(modid = Constants.MOD_ID, name = Constants.MOD_NAME, version = Constants.VERSION, dependencies = "required-after:GalacticraftCore;")
 public class SpaceCore {
-	@SidedProxy(clientSide = "com.mattparks.space.core.proxy.ClientProxy", serverSide = "com.mattparks.space.proxy.CommonProxy")
+	@SidedProxy(clientSide = "com.mattparks.space.core.proxy.ClientProxy", serverSide = "com.mattparks.space.core.proxy.CommonProxy")
 	public static CommonProxy proxy;
 
 	@Instance(Constants.MOD_ID)
@@ -141,22 +145,27 @@ public class SpaceCore {
 		SpaceLog.severe("Post-Init");
 		
 		createCreativeTabs();
+
+		try {
+			initMusic();
+		} catch(NoSuchMethodError e) {
+		//	e.printStackTrace();
+		}
 		
 		for (ICoreModule module : modulesList) {
-			loadMusic(module.getSpaceMusic(Minecraft.getMinecraft()));
 			module.loadRecipes();
 		}
 		
 		proxy.postInit(event);
 	}
-	
-	private void loadMusic(TickerSpaceMusic spaceMusic) {
-		try {
-			Field ftc = Minecraft.getMinecraft().getClass().getDeclaredField(VersionUtil.getNameDynamic(VersionUtil.KEY_FIELD_MUSICTICKER));
-			ftc.setAccessible(true);
-			ftc.set(Minecraft.getMinecraft(), spaceMusic);
-		} catch (Exception e) {
-			e.printStackTrace();
+
+	@SideOnly(Side.CLIENT)
+	private void initMusic() {
+		for (ICoreModule module : modulesList) {
+			if (module instanceof ICoreCelestial) {
+				ICoreCelestial celestial = (ICoreCelestial) module;
+				ClientProxy.MUSIC_HANDLER_SPACE.loadMusicType(celestial, celestial.getMusicJSON());
+			}
 		}
 	}
 	

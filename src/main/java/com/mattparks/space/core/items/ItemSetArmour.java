@@ -37,6 +37,15 @@ public class ItemSetArmour {
 		this.leggings = new ItemArmour(material.name()  + "Leggings", 7, 2);
 		this.boots = new ItemArmour(material.name()  + "Boots", 7, 3);
 		
+		try {
+			registerRenderer();
+		} catch(NoSuchMethodError e) {
+		//	e.printStackTrace();
+		}
+	}
+
+	@SideOnly(Side.CLIENT)
+	private void registerRenderer() {
 		this.renderIndex = RenderingRegistry.addNewArmourRendererPrefix(material.name());
 	}
 

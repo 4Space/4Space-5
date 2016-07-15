@@ -69,7 +69,7 @@ public class GenChunkProvider extends ChunkProviderGenerate {
 		
 		this.generationSetup = generationSetup;
 		this.biomeDecorator = biomeDecorator;
-		this.caveGenerator = new GenMapGenCave();
+		this.caveGenerator = new GenMapGenCave(generationSetup);
 		
 		this.biomesForGeneration = new BiomeGenBase[]{ chunkManager.getBiome() };
 	}
@@ -333,6 +333,7 @@ public class GenChunkProvider extends ChunkProviderGenerate {
 		protected double mountainHeightMod;
 		protected double valleyHeightMod;
 		protected int craterProbibility;
+		protected int caveChance;
 		
 		protected SpacePair<Block, Byte> blockTop;
 		protected SpacePair<Block, Byte> blockFiller;
@@ -340,7 +341,7 @@ public class GenChunkProvider extends ChunkProviderGenerate {
 		
 		protected List<SpawnListEntry> spawnableMonsters;
 		
-		public GenerationSettings(double terrainHeightMod, double smallFeatureHeightMod, double mountainHeightMod, double valleyHeightMod, int craterProbibility, 
+		public GenerationSettings(double terrainHeightMod, double smallFeatureHeightMod, double mountainHeightMod, double valleyHeightMod, int craterProbibility, int caveChance,
 				SpacePair<Block, Integer> blockTop, SpacePair<Block, Integer> blockFiller, SpacePair<Block, Integer> blockLower,
 				List<SpawnListEntry> spawnableMonsters) {
 			this.terrainHeightMod = terrainHeightMod;
@@ -348,6 +349,7 @@ public class GenChunkProvider extends ChunkProviderGenerate {
 			this.mountainHeightMod = mountainHeightMod;
 			this.valleyHeightMod = valleyHeightMod;
 			this.craterProbibility = craterProbibility;
+			this.caveChance = caveChance;
 			
 			this.blockTop = new SpacePair<Block, Byte>(blockTop.getFirst(), new Byte("" + blockTop.getSecond()));
 			this.blockFiller = new SpacePair<Block, Byte>(blockFiller.getFirst(), new Byte("" + blockFiller.getSecond()));

@@ -3,7 +3,7 @@ package com.mattparks.space.core.builder;
 import java.io.File;
 
 import com.mattparks.space.core.Constants;
-import com.mattparks.space.core.tick.TickerSpaceMusic;
+import com.mattparks.space.core.music.MusicHandlerClient;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import net.minecraft.client.Minecraft;
@@ -100,15 +100,6 @@ public abstract class ICoreModule {
 	 */
 	public abstract void registerOtherEntities();
 	
-	/**
-	 * Gets the optional music player.
-	 * 
-	 * @param minecraft The current minecraft instance.
-	 * 
-	 * @return The optional music tick player.
-	 */
-	public abstract TickerSpaceMusic getSpaceMusic(Minecraft minecraft);
-
 	/**
 	 * Loads crafting and smelting recipes to minecraft.
 	 */
