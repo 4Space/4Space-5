@@ -114,8 +114,8 @@ public class SpaceCore {
 		
 		// Registers each module.
 		for (ICoreModule module : modulesList) {
-			module.loadBlocks();
 			module.loadItems();
+			module.loadBlocks();
 			
 			module.addShapelessRecipes();
 			module.registerTileEntities();

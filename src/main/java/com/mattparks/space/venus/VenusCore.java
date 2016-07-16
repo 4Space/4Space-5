@@ -131,7 +131,7 @@ public class VenusCore extends ICorePlanet {
 		OreDictionary.registerOre("sulfurDecor", new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockSulfur")));
 		OreDictionary.registerOre("uraniumDecor", new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockUranium")));
 		OreDictionary.registerOre("rubyDecor", new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockRuby")));
-		OreDictionary.registerOre("crystalDecor", new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockCrystal")));
+		OreDictionary.registerOre("pellucidumDecor", new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockPellucidum")));
 
 		// ARMOR AND TOOLS CRAFTING
 		RecipeUtil.addRecipe(new ItemStack(VenusItems.armourRuby.boots), new Object[] { "X X", "X X", 'X', "ruby" });
@@ -163,18 +163,28 @@ public class VenusCore extends ICorePlanet {
 		RecipeUtil.addRecipe(new ItemStack(VenusItems.batteryUranium, 1, 100), new Object[] { "TTT", "SIS", "TTT", 'T', "rubyPlate", 'I', "uraniumDecor", 'S', VenusItems.batterySulfur });
 		RecipeUtil.addRecipe(new ItemStack(VenusItems.batterySulfur, 1, 100), new Object[] { "TRT", "RVR", "TRT", 'T', "sulfurPlate", 'V', "powerPellucidum", 'R', Items.redstone });
 
+		// ITEM TO BLOCK
+		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockPellucidum")), new Object[] { "XXX", "XXX", "XXX", 'X', "pellucidum" });
+		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockUranium")), new Object[] { "XXX", "XXX", "XXX", 'X', "ingotUranium" });
+		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockRuby")), new Object[] { "XXX", "XXX", "XXX", 'X', "ruby" });
+		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockSulfur")), new Object[] { "XXX", "XXX", "XXX", 'X', "ingotSulfur" });
+
+		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.sulfurTorch, 4, 0), new Object[] { "X", "Y", 'X', "dustSulfur", 'Y', Items.stick });
+		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.sulfurTorch, 4, 0), new Object[] { "X", "Y", 'X', "itemSulfurDust", 'Y', Items.stick });
+		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.venusianTNT, 1, 0), new Object[] { "DXD", "XDX", "DXD", 'X', "dustSulfur", 'D', "venusRodDust" });
+
 		// BLOCK TO ITEM
 		RecipeUtil.addRecipe(new ItemStack(VenusItems.venusItem, 9, VenusItems.venusItem.getIndex("ingotSulfur")), new Object[] { "X", 'X', "sulfurDecor" });
 		RecipeUtil.addRecipe(new ItemStack(VenusItems.venusItem, 9, VenusItems.venusItem.getIndex("ruby")), new Object[] { "X", 'X', "rubyDecor" });
 		RecipeUtil.addRecipe(new ItemStack(VenusItems.venusItem, 9, VenusItems.venusItem.getIndex("ingotUranium")), new Object[] { "X", 'X', "uraniumDecor" });
-		RecipeUtil.addRecipe(new ItemStack(VenusItems.venusItem, 9, VenusItems.venusItem.getIndex("pellucidum")), new Object[] { "X", 'X', "crystalDecor" });
+		RecipeUtil.addRecipe(new ItemStack(VenusItems.venusItem, 9, VenusItems.venusItem.getIndex("pellucidum")), new Object[] { "X", 'X', "pellucidumDecor" });
 
 		// Smelting
 		FurnaceRecipes.smelting().func_151394_a(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusCobblestone")), OreDictionary.getOres("venusStone").get(0), 0.2f);
 		FurnaceRecipes.smelting().func_151394_a(new ItemStack(VenusBlocks.venusBlock, 2, VenusBlocks.venusBlock.getIndex("venusOreSulfur")), OreDictionary.getOres("dustSulfur").get(0), 0.2f);
 		FurnaceRecipes.smelting().func_151394_a(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusOreUranium")), OreDictionary.getOres("ingotUranium").get(0), 0.2f);
 		FurnaceRecipes.smelting().func_151394_a(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusOreRuby")), OreDictionary.getOres("ruby").get(0), 0.2f);
-		FurnaceRecipes.smelting().func_151394_a(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusOreCrystal")), OreDictionary.getOres("pellucidum").get(0), 0.2f);
+		FurnaceRecipes.smelting().func_151394_a(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusOrePellucidum")), OreDictionary.getOres("pellucidum").get(0), 0.2f);
 		FurnaceRecipes.smelting().func_151394_a(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusOreTin")), OreDictionary.getOres("ingotTin").get(0), 0.2f);
 		FurnaceRecipes.smelting().func_151394_a(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusOreCopper")), OreDictionary.getOres("ingotCopper").get(0), 0.2f);
 		FurnaceRecipes.smelting().func_151394_a(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusOreIron")), new ItemStack(Items.iron_ingot), 0.2f);

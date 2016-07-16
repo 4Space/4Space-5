@@ -143,11 +143,11 @@ public class GenMapGenCave extends MapGenBaseMeta {
 										final int coords = (localX * 16 + localZ) * 256 + localY;
 
 										if (yfactor > -0.7 && xfactorSq + yfactorSq + zfactorSq < 1.0) {
-											if (blockIdArray[coords] == settings.blockLower.getFirst()) { // TODO: use meta!
+											if (blockIdArray[coords] == settings.blockLower.getFirst()) { // TODO: Use meta!
 												if (metaArray[coords] == 1 || metaArray[coords] == 2) {
-													blockIdArray[coords] = Blocks.lava;
+													blockIdArray[coords] = Blocks.air;
 												} else if (metaArray[coords] == 0 && random.nextInt(settings.caveChance) == 0) {
-													blockIdArray[coords] = Blocks.lava;
+													blockIdArray[coords] = Blocks.air;
 												}
 											}
 										}

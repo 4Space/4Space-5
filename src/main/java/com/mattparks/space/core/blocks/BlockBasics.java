@@ -1,6 +1,7 @@
 package com.mattparks.space.core.blocks;
 
 import java.util.List;
+import java.util.Random;
 
 import com.mattparks.space.core.SpaceCore;
 
@@ -8,12 +9,14 @@ import micdoodle8.mods.galacticraft.api.block.IDetectableResource;
 import micdoodle8.mods.galacticraft.api.block.IPartialSealableBlock;
 import micdoodle8.mods.galacticraft.api.block.IPlantableBlock;
 import micdoodle8.mods.galacticraft.api.block.ITerraformableBlock;
+import micdoodle8.mods.galacticraft.core.items.GCItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -59,6 +62,11 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 	public CreativeTabs getCreativeTabToDisplayOn() {
 		return SpaceCore.spaceBlocksTab;
 	}
+
+    @Override
+    public Item getItemDropped(int meta, Random random, int par3) {
+    	return blocks[meta].dropItem == null ? Item.getItemFromBlock(this) : blocks[meta].dropItem;
+    }
 
 	@Override
 	public IIcon getIcon(int side, int meta) {

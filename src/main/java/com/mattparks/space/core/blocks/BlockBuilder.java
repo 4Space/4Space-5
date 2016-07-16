@@ -1,5 +1,7 @@
 package com.mattparks.space.core.blocks;
 
+import net.minecraft.item.Item;
+
 /**
  * A class used to setup values for simple blocks.
  */
@@ -12,6 +14,7 @@ public class BlockBuilder {
 	public boolean isPlantable = false;
 	public boolean sealable = false;
 	public boolean isValueable = false;
+	public Item dropItem = null;
 	
 	public BlockBuilder(String type) {
 		this.type = type;
@@ -49,6 +52,11 @@ public class BlockBuilder {
 
 	public BlockBuilder setValueable(boolean isValueable) {
 		this.isValueable = isValueable;
+		return this;
+	}
+
+	public BlockBuilder setDropItem(Item dropItem) {
+		this.dropItem = dropItem;
 		return this;
 	}
 }
