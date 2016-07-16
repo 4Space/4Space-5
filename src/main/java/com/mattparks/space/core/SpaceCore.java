@@ -1,15 +1,13 @@
 package com.mattparks.space.core;
 
-import java.lang.reflect.Field;
-import com.mattparks.space.core.builder.celestials.ICoreCelestial;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import com.mattparks.space.core.builder.ICoreModule;
+import com.mattparks.space.core.builder.celestials.ICoreCelestial;
 import com.mattparks.space.core.builder.celestials.ICoreMoon;
 import com.mattparks.space.core.builder.celestials.ICorePlanet;
-import com.mattparks.space.core.music.MusicHandlerClient;
 import com.mattparks.space.core.proxy.ClientProxy;
 import com.mattparks.space.core.proxy.CommonProxy;
 import com.mattparks.space.core.utils.SpaceCreativeTab;
@@ -31,9 +29,7 @@ import cpw.mods.fml.common.event.FMLServerStoppedEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import micdoodle8.mods.galacticraft.core.util.VersionUtil;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

@@ -9,14 +9,12 @@ import micdoodle8.mods.galacticraft.api.block.IDetectableResource;
 import micdoodle8.mods.galacticraft.api.block.IPartialSealableBlock;
 import micdoodle8.mods.galacticraft.api.block.IPlantableBlock;
 import micdoodle8.mods.galacticraft.api.block.ITerraformableBlock;
-import micdoodle8.mods.galacticraft.core.items.GCItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -70,7 +68,11 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 
 	@Override
 	public IIcon getIcon(int side, int meta) {
-		return this.blockIcon[meta];
+		if (meta > blocks.length) {
+			return this.blockIcon[0];
+		}
+		
+		return blockIcon[meta];
 	}
 
 	@Override
@@ -140,6 +142,43 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 	@Override
 	public boolean isValueable(int meta) {
 		return blocks[meta].isValueable;
+	}
+
+	@Override
+	public boolean isFireSource(World world, int x, int y, int z, ForgeDirection side) {
+        int meta = world.getBlockMetadata(x, y, z);
+         
+        if (blocks[meta].smokeFactor > 0.0f) {
+			if (side == ForgeDirection.UP) {
+				return true;
+			}
+        }
+        
+		return super.isFireSource(world, x, y, z, side);
+	}
+
+	@Override
+	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+        int meta = world.getBlockMetadata(x, y, z);
+         
+        if (blocks[meta].smokeFactor > 0.0f) {
+			entity.setFire(10);
+			entity.motionX *= 0.5;
+			entity.motionZ *= 0.5;
+        }
+	}
+
+	@Override
+	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
+        int meta = world.getBlockMetadata(x, y, z);
+         
+        if (blocks[meta].smokeFactor > 0.0f) {
+        	for (int i = 0; i < (int) blocks[meta].smokeFactor; i++) {
+				if (random.nextInt(1) == 0) {
+					world.spawnParticle("largesmoke", x + random.nextFloat(), y + 1.1f, z + random.nextFloat(), 0.0, 0.0, 0.0);
+				}
+        	}
+        }
 	}
 
 	public int getIndex(String blockName) {

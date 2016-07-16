@@ -7,8 +7,6 @@ import com.mattparks.space.core.builder.celestials.ICoreCelestial;
 import com.mattparks.space.core.utils.SpacePair;
 
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MusicTicker;
 import net.minecraft.client.audio.PositionedSoundRecord;

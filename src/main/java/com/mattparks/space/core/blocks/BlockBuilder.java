@@ -15,6 +15,7 @@ public class BlockBuilder {
 	public boolean sealable = false;
 	public boolean isValueable = false;
 	public Item dropItem = null;
+	public float smokeFactor = 0.0f;
 	
 	public BlockBuilder(String type) {
 		this.type = type;
@@ -57,6 +58,11 @@ public class BlockBuilder {
 
 	public BlockBuilder setDropItem(Item dropItem) {
 		this.dropItem = dropItem;
+		return this;
+	}
+
+	public BlockBuilder setSmokes(float smokeFactor) {
+		this.smokeFactor = smokeFactor;
 		return this;
 	}
 }

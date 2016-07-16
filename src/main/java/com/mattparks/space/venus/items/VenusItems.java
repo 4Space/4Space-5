@@ -33,6 +33,7 @@ public class VenusItems implements ICoreItems {
 			"venusRod",
 			"venusRodDust",
 			"powerPellucidum",
+			"ventBerry",
 		});
 		batteryUranium = new ItemBattery(VenusCore.instance.prefixTexture, "batteryUranium", 75000.0f);
 		batterySulfur = new ItemBattery(VenusCore.instance.prefixTexture, "batterySulfur", 17500.0f);

@@ -6,7 +6,6 @@ import java.util.List;
 import com.mattparks.space.core.builder.ICoreBlocks;
 import com.mattparks.space.core.builder.ICoreItems;
 import com.mattparks.space.core.builder.celestials.ICorePlanet;
-import com.mattparks.space.core.music.MusicHandlerClient;
 import com.mattparks.space.core.teleport.TeleportTypeBallons;
 import com.mattparks.space.core.utils.SpaceEntityUtil;
 import com.mattparks.space.core.utils.SpacePair;
@@ -35,7 +34,6 @@ import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedSpider;
 import micdoodle8.mods.galacticraft.core.entities.EntityEvolvedZombie;
 import micdoodle8.mods.galacticraft.core.util.RecipeUtil;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -127,11 +125,11 @@ public class VenusCore extends ICorePlanet {
 		OreDictionary.registerOre("venusRodDust", new ItemStack(VenusItems.venusItem, 1, VenusItems.venusItem.getIndex("venusRodDust")));
 		OreDictionary.registerOre("powerPellucidum", new ItemStack(VenusItems.venusItem, 1, VenusItems.venusItem.getIndex("powerPellucidum")));
 
-		OreDictionary.registerOre("venusStone", new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusRock")));
-		OreDictionary.registerOre("sulfurDecor", new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockSulfur")));
-		OreDictionary.registerOre("uraniumDecor", new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockUranium")));
-		OreDictionary.registerOre("rubyDecor", new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockRuby")));
-		OreDictionary.registerOre("pellucidumDecor", new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockPellucidum")));
+		OreDictionary.registerOre("venusStone", new ItemStack(VenusBlocks.decorBlock, 1, VenusBlocks.decorBlock.getIndex("venusRock")));
+		OreDictionary.registerOre("sulfurDecor", new ItemStack(VenusBlocks.decorBlock, 1, VenusBlocks.decorBlock.getIndex("venusBlockSulfur")));
+		OreDictionary.registerOre("uraniumDecor", new ItemStack(VenusBlocks.decorBlock, 1, VenusBlocks.decorBlock.getIndex("venusBlockUranium")));
+		OreDictionary.registerOre("rubyDecor", new ItemStack(VenusBlocks.decorBlock, 1, VenusBlocks.decorBlock.getIndex("venusBlockRuby")));
+		OreDictionary.registerOre("pellucidumDecor", new ItemStack(VenusBlocks.decorBlock, 1, VenusBlocks.decorBlock.getIndex("venusBlockPellucidum")));
 
 		// ARMOR AND TOOLS CRAFTING
 		RecipeUtil.addRecipe(new ItemStack(VenusItems.armourRuby.boots), new Object[] { "X X", "X X", 'X', "ruby" });
@@ -164,10 +162,10 @@ public class VenusCore extends ICorePlanet {
 		RecipeUtil.addRecipe(new ItemStack(VenusItems.batterySulfur, 1, 100), new Object[] { "TRT", "RVR", "TRT", 'T', "sulfurPlate", 'V', "powerPellucidum", 'R', Items.redstone });
 
 		// ITEM TO BLOCK
-		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockPellucidum")), new Object[] { "XXX", "XXX", "XXX", 'X', "pellucidum" });
-		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockUranium")), new Object[] { "XXX", "XXX", "XXX", 'X', "ingotUranium" });
-		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockRuby")), new Object[] { "XXX", "XXX", "XXX", 'X', "ruby" });
-		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusBlockSulfur")), new Object[] { "XXX", "XXX", "XXX", 'X', "ingotSulfur" });
+		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.decorBlock, 1, VenusBlocks.decorBlock.getIndex("venusBlockPellucidum")), new Object[] { "XXX", "XXX", "XXX", 'X', "pellucidum" });
+		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.decorBlock, 1, VenusBlocks.decorBlock.getIndex("venusBlockUranium")), new Object[] { "XXX", "XXX", "XXX", 'X', "ingotUranium" });
+		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.decorBlock, 1, VenusBlocks.decorBlock.getIndex("venusBlockRuby")), new Object[] { "XXX", "XXX", "XXX", 'X', "ruby" });
+		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.decorBlock, 1, VenusBlocks.decorBlock.getIndex("venusBlockSulfur")), new Object[] { "XXX", "XXX", "XXX", 'X', "ingotSulfur" });
 
 		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.sulfurTorch, 4, 0), new Object[] { "X", "Y", 'X', "dustSulfur", 'Y', Items.stick });
 		RecipeUtil.addRecipe(new ItemStack(VenusBlocks.sulfurTorch, 4, 0), new Object[] { "X", "Y", 'X', "itemSulfurDust", 'Y', Items.stick });

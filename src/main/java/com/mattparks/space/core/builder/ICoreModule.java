@@ -3,10 +3,8 @@ package com.mattparks.space.core.builder;
 import java.io.File;
 
 import com.mattparks.space.core.Constants;
-import com.mattparks.space.core.music.MusicHandlerClient;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.config.Configuration;
 
 /**
