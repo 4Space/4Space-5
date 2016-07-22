@@ -18,14 +18,14 @@ public class GenMapGenCave extends MapGenBaseMeta {
 	}
 
 	protected void generateLargeCaveNode(long par1, int par3, int par4, Block[] blockIdArray, byte[] metaArray, double par6, double par8, double par10) {
-		this.generateCaveNode( par1, par3, par4, blockIdArray, metaArray, par6, par8, par10, 1.0F + this.rand.nextFloat() * 6.0F, 0.0F, 0.0F, -1, -1, 0.5D);
+		this.generateCaveNode(par1, par3, par4, blockIdArray, metaArray, par6, par8, par10, 1.0f + this.rand.nextFloat() * 6.0f, 0.0f, 0.0f, -1, -1, 0.5);
 	}
 
 	protected void generateCaveNode(long par1, int par3, int par4, Block[] blockIdArray, byte[] metaArray, double par6, double par8, double par10, float par12, float par13, float par14, int par15, int par16, double par17) {
 		final double d4 = par3 * 16 + 8;
 		final double d5 = par4 * 16 + 8;
-		float f3 = 0.0F;
-		float f4 = 0.0F;
+		float f3 = 0.0f;
+		float f4 = 0.0f;
 		final Random random = new Random(par1);
 
 		if (par16 <= 0) {
@@ -43,7 +43,7 @@ public class GenMapGenCave extends MapGenBaseMeta {
 		final int k1 = random.nextInt(par16 / 2) + par16 / 4;
 
 		for (final boolean flag1 = random.nextInt(6) == 0; par15 < par16; ++par15) {
-			final double d6 = 1.5D + MathHelper.sin(par15 * (float) Math.PI / par16) * par12 * 1.0F;
+			final double d6 = 1.5 + MathHelper.sin(par15 * (float) Math.PI / par16) * par12 * 1.0f;
 			final double d7 = d6 * par17;
 			final float f5 = MathHelper.cos(par14);
 			final float f6 = MathHelper.sin(par14);
@@ -52,21 +52,21 @@ public class GenMapGenCave extends MapGenBaseMeta {
 			par10 += MathHelper.sin(par13) * f5;
 
 			if (flag1) {
-				par14 *= 0.92F;
+				par14 *= 0.92f;
 			} else {
-				par14 *= 0.7F;
+				par14 *= 0.7f;
 			}
 
-			par14 += f4 * 0.1F;
-			par13 += f3 * 0.1F;
-			f4 *= 0.9F;
-			f3 *= 0.75F;
-			f4 += (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 2.0F;
-			f3 += (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4.0F;
+			par14 += f4 * 0.1f;
+			par13 += f3 * 0.1f;
+			f4 *= 0.9f;
+			f3 *= 0.75f;
+			f4 += (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 2.0f;
+			f3 += (random.nextFloat() - random.nextFloat()) * random.nextFloat() * 4.0f;
 
 			if (!flag && par15 == k1 && par12 > 1.0F && par16 > 0) {
-				this.generateCaveNode(random.nextLong(), par3, par4, blockIdArray, metaArray, par6, par8, par10, random.nextFloat() * 0.5F + 0.5F, par13 - (float) Math.PI / 2F, par14 / 3.0F, par15, par16, 1.0D);
-				this.generateCaveNode(random.nextLong(), par3, par4, blockIdArray, metaArray, par6, par8, par10, random.nextFloat() * 0.5F + 0.5F, par13 + (float) Math.PI / 2F, par14 / 3.0F, par15, par16, 1.0D);
+				this.generateCaveNode(random.nextLong(), par3, par4, blockIdArray, metaArray, par6, par8, par10, random.nextFloat() * 0.5F + 0.5F, par13 - (float) Math.PI / 2.0f, par14 / 3.0f, par15, par16, 1.0);
+				this.generateCaveNode(random.nextLong(), par3, par4, blockIdArray, metaArray, par6, par8, par10, random.nextFloat() * 0.5F + 0.5F, par13 + (float) Math.PI / 2.0f, par14 / 3.0f, par15, par16, 1.0);
 				return;
 			}
 
@@ -74,13 +74,13 @@ public class GenMapGenCave extends MapGenBaseMeta {
 				final double d8 = par6 - d4;
 				final double d9 = par10 - d5;
 				final double d10 = par16 - par15;
-				final double d11 = par12 + 2.0F + 16.0F;
+				final double d11 = par12 + 2.0f + 16.0f;
 
 				if (d8 * d8 + d9 * d9 - d10 * d10 > d11 * d11) {
 					return;
 				}
 
-				if (par6 >= d4 - 16.0D - d6 * 2.0D && par10 >= d5 - 16.0D - d6 * 2.0D && par6 <= d4 + 16.0D + d6 * 2.0D && par10 <= d5 + 16.0D + d6 * 2.0D) {
+				if (par6 >= d4 - 16.0 - d6 * 2.0 && par10 >= d5 - 16.0 - d6 * 2.0 && par6 <= d4 + 16.0 + d6 * 2.0 && par10 <= d5 + 16.0 + d6 * 2.0) {
 					int l1 = MathHelper.floor_double(par6 - d6) - par3 * 16 - 1;
 					int i2 = MathHelper.floor_double(par6 + d6) - par3 * 16 + 1;
 					int j2 = MathHelper.floor_double(par8 - d7) - 1;

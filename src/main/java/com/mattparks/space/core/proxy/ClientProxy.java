@@ -18,6 +18,7 @@ import org.lwjgl.opengl.GL11;
 import com.google.common.collect.Maps;
 import com.mattparks.space.core.Constants;
 import com.mattparks.space.core.music.MusicHandlerClient;
+import com.mattparks.space.core.particle.EntityTFLargeFlameFX;
 import com.mattparks.space.core.tick.TickHandlerClient;
 import com.mattparks.space.core.utils.SpaceLog;
 
@@ -34,11 +35,14 @@ import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import micdoodle8.mods.galacticraft.core.util.VersionUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.AbstractClientPlayer;
+import net.minecraft.client.particle.EntityFX;
+import net.minecraft.client.particle.EntitySmokeFX;
 import net.minecraft.client.renderer.IImageBuffer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.common.util.EnumHelper;
 
@@ -263,6 +267,45 @@ public class ClientProxy extends CommonProxy {
 		}
 	}
 
+	/**
+	 * Spawns a particle.  This is my copy of RenderGlobal.spawnParticle where I implement custom particles.
+	 */
+	public static void spawnParticle(World world, String particleType, double x, double y, double z, double velX, double velY, double velZ) {
+		Minecraft mc = FMLClientHandler.instance().getClient();
+
+		if (mc != null && mc.renderViewEntity != null && mc.effectRenderer != null && mc.theWorld == world) {
+			// TODO: Check render settings?
+			double distX = mc.renderViewEntity.posX - x;
+			double distY = mc.renderViewEntity.posY - y;
+			double distZ = mc.renderViewEntity.posZ - z;
+			double lengthT = distX * distX + distY * distY + distZ * distZ;
+			
+			EntityFX particle = null;
+
+			double maxDist = 64.0; // Normally 16.0
+
+			// Check for particle max distance
+			if (lengthT < maxDist * maxDist) {
+				if (particleType.equals("largeflame")) {
+					particle = new EntityTFLargeFlameFX(world, x, y, z, velX, velY, velZ);
+				} else if (particleType.equals("hugesmoke")) {
+					particle = new EntitySmokeFX(world, x, y, z, velX, velY, velZ, 2.75f);
+				}
+
+				// If we made a partcle, go ahead and add it.
+				if (particle != null) {
+					particle.prevPosX = particle.posX;
+					particle.prevPosY = particle.posY;
+					particle.prevPosZ = particle.posZ;
+					
+					// We keep having a non-threadsafe crash adding particles directly here, so let's pass them to a buffer.
+					//clientTicker.addParticle(particle); 
+					mc.effectRenderer.addEffect(particle); // maybe it's fixed?
+				}
+			}
+		}
+	}
+	
 	@SubscribeEvent
 	public void onRenderPlanetPost(CelestialBodyRenderEvent.Post event) {
 	}

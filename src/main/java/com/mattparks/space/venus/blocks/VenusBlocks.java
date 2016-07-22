@@ -6,7 +6,6 @@ import com.mattparks.space.core.builder.ICoreBlocks;
 import com.mattparks.space.venus.VenusCore;
 import com.mattparks.space.venus.items.VenusItems;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -33,7 +32,6 @@ public class VenusBlocks implements ICoreBlocks {
 			new BlockBuilder("venusOreTin").setHardness(2.5f).setValueable(true),
 			new BlockBuilder("venusOreCopper").setHardness(2.5f).setValueable(true),
 			new BlockBuilder("venusOreIron").setHardness(2.5f).setValueable(true),
-			new BlockBuilder("venusOreCoal").setHardness(2.5f).setValueable(true).setDropItem(Items.coal),
 		});
 		decorBlock = new BlockBasics("decorBlock", VenusCore.instance.prefixTexture, new BlockBuilder[] {
 			new BlockBuilder("venusBlockSulfur").setHardness(4.0f),
@@ -68,6 +66,5 @@ public class VenusBlocks implements ICoreBlocks {
 		OreDictionary.registerOre("oreTin", new ItemStack(VenusBlocks.venusBlock, 1, venusBlock.getIndex("venusOreTin")));
 		OreDictionary.registerOre("oreCopper", new ItemStack(VenusBlocks.venusBlock, 1, venusBlock.getIndex("venusOreCopper")));
 		OreDictionary.registerOre("oreIron", new ItemStack(VenusBlocks.venusBlock, 1, venusBlock.getIndex("venusOreIron")));
-		OreDictionary.registerOre("oreCoal", new ItemStack(VenusBlocks.venusBlock, 1, venusBlock.getIndex("venusOreCoal")));
 	}
 }

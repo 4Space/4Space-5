@@ -186,7 +186,6 @@ public class VenusCore extends ICorePlanet {
 		FurnaceRecipes.smelting().func_151394_a(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusOreTin")), OreDictionary.getOres("ingotTin").get(0), 0.2f);
 		FurnaceRecipes.smelting().func_151394_a(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusOreCopper")), OreDictionary.getOres("ingotCopper").get(0), 0.2f);
 		FurnaceRecipes.smelting().func_151394_a(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusOreIron")), new ItemStack(Items.iron_ingot), 0.2f);
-		FurnaceRecipes.smelting().func_151394_a(new ItemStack(VenusBlocks.venusBlock, 1, VenusBlocks.venusBlock.getIndex("venusOreCoal")), new ItemStack(Items.coal), 0.2f);
 	}
 
 	@Override
@@ -247,7 +246,7 @@ public class VenusCore extends ICorePlanet {
 		double smallFeatureHeightMod = 44.0;
 		double mountainHeightMod = 111.0;
 		double valleyHeightMod = 55.0;
-		int craterProbibility = 333;
+		int craterProbibility = 30000000;
 		int caveChance = 25;
 		
 		SpacePair<Block, Integer> blockTop = new SpacePair<Block, Integer>(VenusBlocks.venusBlock, VenusBlocks.venusBlock.getIndex("venusSurfaceRock"));

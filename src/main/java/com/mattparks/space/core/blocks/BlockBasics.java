@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.mattparks.space.core.SpaceCore;
+import com.mattparks.space.core.proxy.ClientProxy;
 
 import micdoodle8.mods.galacticraft.api.block.IDetectableResource;
 import micdoodle8.mods.galacticraft.api.block.IPartialSealableBlock;
@@ -63,12 +64,16 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 
     @Override
     public Item getItemDropped(int meta, Random random, int par3) {
-    	return blocks[meta].dropItem == null ? Item.getItemFromBlock(this) : blocks[meta].dropItem;
+		if (meta <= blocks.length) {
+			return blocks[meta].dropItem == null ? Item.getItemFromBlock(this) : blocks[meta].dropItem;
+		}
+		
+		return null;
     }
 
 	@Override
 	public IIcon getIcon(int side, int meta) {
-		if (meta > blocks.length) {
+		if (meta <= blocks.length) {
 			return this.blockIcon[0];
 		}
 		
@@ -85,19 +90,27 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 	@Override
 	public float getBlockHardness(World par1World, int x, int y, int z) {
 		int meta = par1World.getBlockMetadata(x, y, z);
-		return blocks[meta].hardness;
+		
+		if (meta < blocks.length) {
+			return blocks[meta].hardness;
+		}
+		
+		return 1.0f;
 	}
 
 	@Override
 	public float getExplosionResistance(Entity par1Entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ) {
 		int meta = world.getBlockMetadata(x, y, z);
-		float resistance = blocks[meta].resistance;
 		
-		if (resistance != -1) {
-			return resistance;
-		} else {
-			return super.getExplosionResistance(par1Entity, world, x, y, z, explosionX, explosionY, explosionZ);
+		if (meta <= blocks.length) {
+			float resistance = blocks[meta].resistance;
+			
+			if (resistance != -1) {
+				return resistance;
+			}
 		}
+		
+		return super.getExplosionResistance(par1Entity, world, x, y, z, explosionX, explosionY, explosionZ);
 	}
 
 	@Override
@@ -120,7 +133,12 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 	@Override
 	public boolean isTerraformable(World world, int x, int y, int z) {
         int meta = world.getBlockMetadata(x, y, z);
-		return blocks[meta].isTerraformable;
+		
+		if (meta < blocks.length) {
+			return blocks[meta].isTerraformable;
+		}
+		
+		return false;
 	}
 
 	@Override
@@ -130,13 +148,22 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 
 	@Override
 	public boolean isPlantable(int meta) {
-		return blocks[meta].isPlantable;
+		if (meta <= blocks.length) {
+			return blocks[meta].isPlantable;
+		}
+		
+		return false;
 	}
 
 	@Override
 	public boolean isSealed(World world, int x, int y, int z, ForgeDirection direction) {
         int meta = world.getBlockMetadata(x, y, z);
-		return blocks[meta].sealable;
+		
+		if (meta <= blocks.length) {
+			return blocks[meta].sealable;
+		}
+		
+		return false;
 	}
 
 	@Override
@@ -148,34 +175,24 @@ public class BlockBasics extends Block implements IDetectableResource, IPartialS
 	public boolean isFireSource(World world, int x, int y, int z, ForgeDirection side) {
         int meta = world.getBlockMetadata(x, y, z);
          
-        if (blocks[meta].smokeFactor > 0.0f) {
-			if (side == ForgeDirection.UP) {
+		if (meta <= blocks.length) {
+			if (blocks[meta].smokeFactor > 0.0f) {
 				return true;
 			}
-        }
+		}
         
 		return super.isFireSource(world, x, y, z, side);
-	}
-
-	@Override
-	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
-        int meta = world.getBlockMetadata(x, y, z);
-         
-        if (blocks[meta].smokeFactor > 0.0f) {
-			entity.setFire(10);
-			entity.motionX *= 0.5;
-			entity.motionZ *= 0.5;
-        }
 	}
 
 	@Override
 	public void randomDisplayTick(World world, int x, int y, int z, Random random) {
         int meta = world.getBlockMetadata(x, y, z);
          
-        if (blocks[meta].smokeFactor > 0.0f) {
+        if (meta <= blocks.length && blocks[meta].smokeFactor > 0.0f) {
         	for (int i = 0; i < (int) blocks[meta].smokeFactor; i++) {
 				if (random.nextInt(1) == 0) {
-					world.spawnParticle("largesmoke", x + random.nextFloat(), y + 1.1f, z + random.nextFloat(), 0.0, 0.0, 0.0);
+					ClientProxy.spawnParticle(world, "hugesmoke", x + random.nextFloat(), y + 1.1f, z + random.nextFloat(), 0.0, 0.8 * random.nextDouble(), 0.0);
+					ClientProxy.spawnParticle(world, "largeflame", x + random.nextFloat(), y + 1.1f, z + random.nextFloat(), 0.0, 0.5 * random.nextDouble(), 0.0);
 				}
         	}
         }
