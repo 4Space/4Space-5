@@ -1,0 +1,76 @@
+# 4Space Venus Language File = Русский
+
+# General Items
+item.ingotSulfur.name=Слиток серы
+item.tier4HeavyDutyPlate.name=Укреплённая пластина
+item.ruby.name=Рубин
+item.rubyPlate.name=Рубиновая пластина
+item.sulfurDust.name=Серный порошок
+item.sulfurPlate.name=Пластина из серы
+item.venusSulfurBattery.name=Батарейка с серой
+item.venusUraniumBattery.name=Батарейка с ураном
+item.pellucidum.name=Прозрачнит(need to fix)
+item.powerPellucidum.name=Заряженый прозрачнит(need to fix)
+item.venusRod.name=Венерианский стержень
+item.venusRodDust.name=Пыль из Венерианского стержня
+item.ingotUranium.name=Урановый слиток
+item.uraniumPlate.name=Урановая пластина
+item.ventBerry.name=Raw Vent Berry
+item.batterySulfur.name=Батарейка с серой
+item.batteryUranium.name=Батарейка с ураном
+
+# Tools
+item.rubyAxe.name=Рубиновый топор
+item.rubyHoe.name=Рубиновая мотыга
+item.rubyPickaxe.name=Рубиновая кирка
+item.rubySpade.name=Рубиновая лопата
+item.rubySword.name=Рубиновый меч
+item.sulfurAxe.name=Топор из серы
+item.sulfurHoe.name=Мотыга из серы
+item.sulfurPickaxe.name=Кирка из серы
+item.sulfurSpade.name=Лопата из серы
+item.sulfurSword.name=Меч из серы
+
+# Armor
+item.rubyBoots.name=Рубиновые ботинки
+item.rubyChestplate.name=Рубиновый нагрудник
+item.rubyHelmet.name=Рубиновый шлем
+item.rubyLeggings.name=Рубиновый поножи
+item.sulfurBoots.name=Ботинки из серы
+item.sulfurChestplate.name=Нагрудник из серы
+item.sulfurHelmet.name=Шлем из серы
+item.sulfurLeggings.name=Поножи из серы
+
+# Blocks
+tile.venusBlock.venusSurfaceRock.name=Блок Венерианской поверхности
+tile.venusBlock.venusSubRock.name=Подповерхностный Венерианский блок
+tile.venusBlock.venusCobblestone.name=Венерианский булыжник
+tile.venusBlock.venusRock.name=Венерианский камень
+tile.venusBlock.venusBrickDungeon.name=Кирпичб Венерианского подземелья
+tile.venusBlock.venusOreCoal.name=Венерианская угольная руда
+tile.venusBlock.venusOreCopper.name=Венерианская медныя руда
+tile.venusBlock.venusOrePellucidum.name=Венерианская руда Прозрачнита(need to fix)
+tile.venusBlock.venusOreRuby.name=Венерианская рубиновая руда
+tile.venusBlock.venusOreUranium.name=Венерианская урановая руда
+tile.venusBlock.venusOreIron.name=Венерианская железная руда
+tile.venusBlock.venusOreSulfur.name=Венерианская серная руда
+tile.venusBlock.venusOreTin.name=Венерианская оловянная руда
+tile.venusBlock.venusVent.name=Venus Vent
+tile.decorBlock.venusBlockUranium.name=Блок урана
+tile.decorBlock.venusBlockPellucidum.name=Блок Прозрачнита(need to fix)
+tile.decorBlock.venusBlockRuby.name=Блок Рубина
+tile.decorBlock.venusBlockSulfur.name=Блок Серы
+tile.sulfurTorch.name=Факел из Серы
+tile.evolvedBlazeEgg.name=Яйцо призыва Эволюционировавшего Иффрита
+tile.venusianTNT.name=Венерианский динасит
+
+# Guis
+
+# Schematics
+
+# Entity
+entity.spaceCore.EvolvedBlaze.name=Эволюционировавший Иффрит
+entity.spaceCore.VenusianVillager.name=Венерианский житель
+entity.spaceCore.VenusianTNT.name=Живой Венерианский динамит
+
+# Others
