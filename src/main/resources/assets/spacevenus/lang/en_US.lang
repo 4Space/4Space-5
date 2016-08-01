@@ -2,7 +2,7 @@
 
 # General Items
 item.ingotSulfur.name=Sulfur Ingot
-item.tier4HeavyDutyPlate.name=Heavy-Duty Plate
+item.tier4HeavyDutyPlate.name=Heavy-Duty Plate T4
 item.ruby.name=Ruby
 item.rubyPlate.name=Ruby Plate
 item.sulfurDust.name=Sulfur Dust
@@ -47,6 +47,7 @@ tile.venusBlock.venusSubRock.name=Venus Sub-Surface Rock
 tile.venusBlock.venusCobblestone.name=Venus Cobblestone
 tile.venusBlock.venusRock.name=Venus Rock
 tile.venusBlock.venusBrickDungeon.name=Venus Dungeon Brick
+tile.venusBlock.venusOreCoal.name=Venus Coal Ore
 tile.venusBlock.venusOreCopper.name=Venus Copper Ore
 tile.venusBlock.venusOrePellucidum.name=Venus Pellucidum Ore
 tile.venusBlock.venusOreRuby.name=Venus Ruby Ore
@@ -55,10 +56,10 @@ tile.venusBlock.venusOreIron.name=Venus Iron Ore
 tile.venusBlock.venusOreSulfur.name=Venus Sulfur Ore
 tile.venusBlock.venusOreTin.name=Venus Tin Ore
 tile.venusBlock.venusVent.name=Venus Vent
-tile.decorBlock.venusBlockUranium.name=Block of Uranium
-tile.decorBlock.venusBlockPellucidum.name=Block of Pellucidum
-tile.decorBlock.venusBlockRuby.name=Block of Ruby
-tile.decorBlock.venusBlockSulfur.name=Block of Sulfur
+tile.venusDecorBlock.venusBlockUranium.name=Block of Uranium
+tile.venusDecorBlock.venusBlockPellucidum.name=Block of Pellucidum
+tile.venusDecorBlock.venusBlockRuby.name=Block of Ruby
+tile.venusDecorBlock.venusBlockSulfur.name=Block of Sulfur
 tile.sulfurTorch.name=Sulfur Torch
 tile.evolvedBlazeEgg.name=Evolved Blaze Egg
 tile.venusianTNT.name=Venusian TNT

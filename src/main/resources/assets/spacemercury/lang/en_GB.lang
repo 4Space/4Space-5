@@ -1,0 +1,42 @@
+# 4Space Mercury Language File = BRITISH ENGLISH
+
+# General Items
+item.iridiumCrystals.name=Iridium Crystals
+item.iridiumPlate.name=Iridium Plate
+
+# Tools
+item.iridiumAxe.name=Iridium Axe
+item.iridiumHoe.name=Iridium Hoe
+item.iridiumPickaxe.name=Iridium Pickaxe
+item.iridiumSpade.name=Iridium Shovel
+item.iridiumSword.name=Iridium Sword
+
+# Armour
+item.iridiumBoots.name=Iridium Boots
+item.iridiumChestplate.name=Iridium Chestplate
+item.iridiumHelmet.name=Iridium Helmet
+item.iridiumLeggings.name=Iridium Leggings
+
+# Blocks
+tile.mercuryBlock.mercurySurfaceRock.name=Mercury Surface Rock
+tile.mercuryBlock.mercurySubRock.name=Mercury Sub-Surface Rock
+tile.mercuryBlock.mercuryRock.name=Mercury Rock
+tile.mercuryBlock.mercuryCobblestone.name=Mercury Cobblestone
+tile.mercuryBlock.mercuryBrickDungeon.name=Mercury Dungeon Brick
+tile.mercuryBlock.mercuryOreIridium.name=Mercury Iridium Ore
+tile.mercuryBlock.mercuryOreCopper.name=Mercury Copper Ore
+tile.mercuryBlock.mercuryOreMeteor.name=Mercury Meteor Ore
+tile.mercuryBlock.mercuryOreGold.name=Mercury Gold Ore
+tile.mercuryBlock.mercuryOreTin.name=Mercury Tin Ore
+tile.mercuryDecorBlock.mercuryBlockIridium.name=Block of Iridium
+tile.mercuryDecorBlock.mercuryBlockMeteor.name=Block of Meteor
+tile.mercuryCaravanModule.name=Caravan Module
+tile.mercuryCaravanDummy.name=Caravan Module
+
+# Guis
+
+# Schematics
+
+# Entity
+
+# Others
